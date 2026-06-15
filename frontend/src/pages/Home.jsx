@@ -11,6 +11,12 @@ import Icon from "../components/Icon.jsx";
 
 // Focus items (content order): building materials, coatings, finishing, supply.
 const FOCUS_ICONS = ["building", "shield", "roller", "truck"];
+const FOCUS_IMAGES = [
+  "/visualization/building-material.png",
+  "/visualization/paint.png",
+  "/visualization/finish-material.png",
+  "/visualization/supply-chain.png",
+];
 // Offerings (catalogue order): coatings, fasteners, fireproofing.
 const OFFER_ICONS = ["shield", "bolt", "flame"];
 
@@ -69,13 +75,16 @@ export default function Home() {
           <div className="focus-grid">
             {company?.focus?.map((f, i) => (
               <Reveal as="article" key={i} delay={i * 90} className="focus-card">
-                <div className="focus-card__top">
-                  <span className="focus-card__icon">
-                    <Icon name={FOCUS_ICONS[i]} size={28} />
-                  </span>
+                <div className="focus-card__media">
+                  <img src={FOCUS_IMAGES[i]} alt="" loading="lazy" />
                   <span className="focus-card__num">0{i + 1}</span>
+                  <span className="focus-card__icon">
+                    <Icon name={FOCUS_ICONS[i]} size={26} />
+                  </span>
                 </div>
-                <p className="focus-card__text">{tr(f)}</p>
+                <div className="focus-card__body">
+                  <p className="focus-card__text">{tr(f)}</p>
+                </div>
                 <span className="focus-card__bar" />
               </Reveal>
             ))}
