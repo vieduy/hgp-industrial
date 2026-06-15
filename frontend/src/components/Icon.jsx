@@ -47,6 +47,28 @@ const PATHS = {
       <path d="M2.5 12.4 12 17.2l9.5-4.8" />
     </>
   ),
+  tag: (
+    <>
+      <path d="M13.4 3.5H20.5V10.6l-8.3 8.3a1.6 1.6 0 0 1-2.3 0L3.6 12.6a1.6 1.6 0 0 1 0-2.3z" />
+      <circle cx="16.4" cy="7.6" r="1.3" />
+    </>
+  ),
+  headset: (
+    <>
+      <path d="M5 13v-1a7 7 0 0 1 14 0v1" />
+      <rect x="3.3" y="12.5" width="3.6" height="6" rx="1.3" />
+      <rect x="17.1" y="12.5" width="3.6" height="6" rx="1.3" />
+      <path d="M18.9 18.5v.8a3 3 0 0 1-3 3h-2.6" />
+    </>
+  ),
+  users: (
+    <>
+      <circle cx="9" cy="8.4" r="2.6" />
+      <path d="M3.7 19a5.3 5.3 0 0 1 10.6 0" />
+      <path d="M15.5 6.1a2.6 2.6 0 0 1 0 5.1" />
+      <path d="M16.2 14.1a5.3 5.3 0 0 1 4.1 4.9" />
+    </>
+  ),
 };
 
 export default function Icon({ name, size = 26, className = "" }) {

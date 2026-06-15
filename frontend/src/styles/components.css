@@ -559,66 +559,64 @@
   }
 }
 
-/* ---------------- Commitment (rust panel) ---------------- */
+/* ---------------- Commitment (icon-card row) ---------------- */
 .commitment {
   background: var(--cream-soft);
 }
-.commitment__panel {
-  position: relative;
-  overflow: hidden;
-  border-radius: 26px;
-  padding: 56px 40px 50px;
+.commitment__grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+}
+.commit-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 32px 18px 28px;
   text-align: center;
-  background: linear-gradient(135deg, var(--rust-light) 0%, var(--rust-dark) 100%);
-  box-shadow: 0 28px 60px rgba(192, 65, 31, 0.28);
+  transition: transform 0.25s ease, box-shadow 0.25s ease,
+    border-color 0.25s ease;
 }
-/* subtle diagonal texture */
-.commitment__panel::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: repeating-linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.05) 0 2px,
-    transparent 2px 26px
-  );
-  pointer-events: none;
+.commit-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow);
+  border-color: rgba(192, 65, 31, 0.3);
 }
-.commitment__panel .sectiontitle {
-  margin-bottom: 28px;
+.commit-card__icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 16px;
+  color: var(--rust);
+  background: rgba(192, 65, 31, 0.1);
+  border: 1.5px solid rgba(192, 65, 31, 0.25);
+  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease,
+    border-color 0.25s ease;
 }
-.commitment__panel .eyebrow {
-  color: rgba(255, 255, 255, 0.82);
-}
-.commitment__panel .section-title {
+.commit-card:hover .commit-card__icon {
+  background: linear-gradient(140deg, var(--rust-light), var(--rust-dark));
   color: #fff;
+  border-color: transparent;
+  transform: scale(1.08);
+  box-shadow: 0 10px 22px rgba(192, 65, 31, 0.35);
 }
-.commitment__row {
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 14px;
-}
-.commitment__item {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+.commit-card__text {
+  margin: 0;
   font-weight: 600;
-  color: #fff;
-  background: rgba(255, 255, 255, 0.16);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  padding: 12px 22px;
-  border-radius: 999px;
-  transition: background 0.2s ease, transform 0.2s ease;
+  font-size: 0.98rem;
+  color: var(--ink);
 }
-.commitment__item:hover {
-  background: rgba(255, 255, 255, 0.26);
-  transform: translateY(-2px);
+@media (max-width: 900px) {
+  .commitment__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
-.commitment__item span {
-  color: #fff;
-  font-weight: 800;
+@media (max-width: 560px) {
+  .commitment__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 /* ---------------- Page head ---------------- */

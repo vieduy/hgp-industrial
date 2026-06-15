@@ -7,7 +7,10 @@ import PartnerGrid from "../components/PartnerGrid.jsx";
 import ProjectGrid from "../components/ProjectGrid.jsx";
 import Reveal from "../components/Reveal.jsx";
 import Stats from "../components/Stats.jsx";
+import Icon from "../components/Icon.jsx";
 
+// Commitment items (content order): genuine, pricing, delivery, support, partnership.
+const COMMIT_ICONS = ["shield", "tag", "truck", "headset", "users"];
 // Focus items (content order): building materials, coatings, finishing, supply.
 const FOCUS_IMAGES = [
   "/visualization/building-material.png",
@@ -156,25 +159,25 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Commitment — rust panel, visually separate from the footer */}
+      {/* Commitment — light icon-card row, separate from the footer */}
       <section className="section commitment">
         <div className="container">
-          <div className="commitment__panel">
-            <Reveal>
-              <SectionTitle
-                eyebrow="HGP INDUSTRIAL"
-                title={tr("home_commitment")}
-                center
-              />
-            </Reveal>
-            <div className="commitment__row">
-              {about?.commitment?.map((c, i) => (
-                <Reveal as="div" key={i} delay={i * 70} className="commitment__item">
-                  <span>✓</span>
-                  {tr(c)}
-                </Reveal>
-              ))}
-            </div>
+          <Reveal>
+            <SectionTitle
+              eyebrow="HGP INDUSTRIAL"
+              title={tr("home_commitment")}
+              center
+            />
+          </Reveal>
+          <div className="commitment__grid">
+            {about?.commitment?.map((c, i) => (
+              <Reveal as="div" key={i} delay={i * 80} className="commit-card">
+                <span className="commit-card__icon">
+                  <Icon name={COMMIT_ICONS[i]} size={26} />
+                </span>
+                <p className="commit-card__text">{tr(c)}</p>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
