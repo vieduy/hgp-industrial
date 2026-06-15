@@ -835,46 +835,145 @@
 }
 
 /* ---------------- About ---------------- */
+/* Shared rust icon medallion (activities, vision/mission, values) */
+.medallion {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  color: var(--rust);
+  background: rgba(192, 65, 31, 0.1);
+  border: 1.5px solid rgba(192, 65, 31, 0.22);
+  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease,
+    border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.medallion--lg {
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+}
+.activity:hover .medallion,
+.vm__card:hover .medallion,
+.value:hover .medallion {
+  background: linear-gradient(140deg, var(--rust-light), var(--rust-dark));
+  color: #fff;
+  border-color: transparent;
+  transform: scale(1.06);
+  box-shadow: 0 10px 22px rgba(192, 65, 31, 0.35);
+}
+
+/* Business activities */
 .activity {
-  padding: 26px 24px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 30px 26px 28px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.25s ease, box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+.activity:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow);
+  border-color: rgba(192, 65, 31, 0.3);
 }
 .activity h3 {
   font-size: 1.15rem;
+  margin: 20px 0 8px;
 }
 .activity p {
   color: var(--muted);
   margin: 0;
 }
+
+/* Vision + Mission */
 .vm__card {
-  padding: 32px 30px;
-}
-.vm__text {
-  font-size: 1.2rem;
-  font-weight: 500;
-  margin: 12px 0 0;
-}
-.vm__list {
-  margin: 12px 0 0;
-  padding-left: 20px;
-}
-.vm__list li {
-  margin-bottom: 8px;
-  font-weight: 500;
-}
-.values {
-  gap: 18px;
-}
-.value {
+  position: relative;
   background: var(--white);
   border: 1px solid var(--line);
-  border-top: 4px solid var(--rust);
+  border-radius: 20px;
+  padding: 36px 34px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.vm__card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  background: linear-gradient(var(--rust-light), var(--rust-dark));
+}
+.vm__card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow);
+}
+.vm__card .eyebrow {
+  display: block;
+  margin-top: 18px;
+}
+.vm__text {
+  font-size: 1.22rem;
+  font-weight: 500;
+  line-height: 1.5;
+  margin: 10px 0 0;
+}
+.vm__list {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+.vm__list li {
+  position: relative;
+  padding-left: 28px;
+  font-weight: 500;
+  font-size: 1.05rem;
+}
+.vm__list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--rust);
+  font-weight: 800;
+}
+
+/* Core values */
+.values {
+  gap: 20px;
+}
+.value {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  background: var(--white);
+  border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 24px 26px;
+  padding: 26px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.25s ease, box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+.value:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow);
+  border-color: rgba(192, 65, 31, 0.3);
+}
+.value .medallion {
+  flex-shrink: 0;
+}
+.value__body {
+  flex: 1;
 }
 .value h3 {
   color: var(--rust);
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   letter-spacing: 0.06em;
+  margin: 2px 0 6px;
 }
 .value p {
   margin: 0;
