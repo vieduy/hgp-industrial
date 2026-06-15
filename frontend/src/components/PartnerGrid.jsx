@@ -1,6 +1,5 @@
-// Partner logos. Until real logo files are dropped into
-// `frontend/public/partners/`, the <img> will fail to load and we fall back to
-// showing the brand name as a styled wordmark.
+// Partner logos only — no name labels, no boxes (logos sit directly on the
+// section background).
 //
 // variant="marquee" renders an infinite horizontal scrolling strip (the list
 // is duplicated so the loop is seamless); the default is a static grid.
@@ -12,11 +11,9 @@ function Item({ p }) {
         alt={p.name}
         loading="lazy"
         onError={(e) => {
-          e.currentTarget.style.display = "none";
-          e.currentTarget.nextSibling.style.display = "block";
+          e.currentTarget.style.visibility = "hidden";
         }}
       />
-      <span className="partner-grid__name">{p.name}</span>
     </div>
   );
 }
