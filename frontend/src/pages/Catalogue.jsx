@@ -6,8 +6,14 @@ import { api } from "../api.js";
 import SectionTitle from "../components/SectionTitle.jsx";
 import SpecTable from "../components/SpecTable.jsx";
 import Reveal from "../components/Reveal.jsx";
+import { PaintRoller, Wrench, FireExtinguisher } from "lucide-react";
 
-const TAB_ICONS = { "protective-coatings": "🛡️", fasteners: "🔩", fireproofing: "🔥" };
+// Clean line icons per product line (color follows the tab state via currentColor).
+const TAB_ICONS = {
+  "protective-coatings": PaintRoller,
+  fasteners: Wrench,
+  fireproofing: FireExtinguisher,
+};
 
 function WhyHgp({ items }) {
   const { tr } = useI18n();
@@ -150,16 +156,21 @@ export default function Catalogue() {
       {/* Sticky tab bar */}
       <div className="cat-tabs">
         <div className="container cat-tabs__inner">
-          {catalogue?.map((c, i) => (
-            <button
-              key={c.id}
-              className={`cat-tab ${i === active ? "is-active" : ""}`}
-              onClick={() => setActive(i)}
-            >
-              <span className="cat-tab__icon">{TAB_ICONS[c.id]}</span>
-              <span className="cat-tab__label">{tr(c.title)}</span>
-            </button>
-          ))}
+          {catalogue?.map((c, i) => {
+            const TabIcon = TAB_ICONS[c.id];
+            return (
+              <button
+                key={c.id}
+                className={`cat-tab ${i === active ? "is-active" : ""}`}
+                onClick={() => setActive(i)}
+              >
+                <span className="cat-tab__icon">
+                  {TabIcon && <TabIcon size={20} strokeWidth={1.9} />}
+                </span>
+                <span className="cat-tab__label">{tr(c.title)}</span>
+              </button>
+            );
+          })}
         </div>
       </div>
 

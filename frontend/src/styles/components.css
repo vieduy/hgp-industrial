@@ -1287,7 +1287,8 @@
   border-bottom-color: var(--rust);
 }
 .cat-tab__icon {
-  font-size: 1.2rem;
+  display: inline-flex;
+  align-items: center;
 }
 .catpanel-wrap {
   padding-top: 48px;
@@ -1341,7 +1342,10 @@
     display: none;
   }
   .cat-tab {
-    padding: 14px 16px;
-    font-size: 1.4rem;
+    padding: 14px 18px;
+  }
+  .cat-tab__icon svg {
+    width: 24px;
+    height: 24px;
   }
 }
