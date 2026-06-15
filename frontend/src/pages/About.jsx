@@ -114,15 +114,16 @@ export default function About() {
         </div>
       </section>
 
-      {/* Contact */}
-      <section id="contact" className="section section--ink contact">
+      {/* Contact — dark panel on a light section, separate from the footer */}
+      <section id="contact" className="section contact">
         <div className="container">
-          <Reveal>
-            <SectionTitle eyebrow="HGP INDUSTRIAL" title={tr("contact_title")} />
-          </Reveal>
-          {c && (
-            <Reveal as="div" className="contact__grid">
-              <dl className="contact__info">
+          <div className="contact__panel">
+            <Reveal>
+              <SectionTitle eyebrow="HGP INDUSTRIAL" title={tr("contact_title")} />
+            </Reveal>
+            {c && (
+              <Reveal as="div" className="contact__grid">
+                <dl className="contact__info">
                 <div>
                   <dt>{tr("contact_tax")}</dt>
                   <dd>{c.tax_code}</dd>
@@ -167,8 +168,9 @@ export default function About() {
                 📍 {tr("contact_map")}
               </a>
             </Reveal>
-          )}
-          <p className="contact__thanks">{tr(about?.thank_you)}</p>
+            )}
+            <p className="contact__thanks">{tr(about?.thank_you)}</p>
+          </div>
         </div>
       </section>
     </>

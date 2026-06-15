@@ -881,8 +881,43 @@
   color: var(--muted);
 }
 
-/* ---------------- Contact ---------------- */
+/* ---------------- Contact (dark panel on a light section) ---------------- */
+.contact {
+  background: var(--cream-soft);
+}
+.contact__panel {
+  position: relative;
+  overflow: hidden;
+  border-radius: 26px;
+  padding: 52px 44px;
+  color: var(--cream);
+  background: linear-gradient(160deg, #2f2620 0%, #1c1714 80%);
+  box-shadow: 0 26px 56px rgba(43, 38, 34, 0.22);
+}
+.contact__panel::before {
+  content: "";
+  position: absolute;
+  top: -30%;
+  right: -10%;
+  width: 50%;
+  height: 80%;
+  background: radial-gradient(circle, rgba(192, 65, 31, 0.4), transparent 70%);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 0;
+}
+.contact__panel > * {
+  position: relative;
+  z-index: 1;
+}
+.contact__panel .eyebrow {
+  color: var(--rust-light);
+}
+.contact__panel .section-title {
+  color: #fff;
+}
 .contact__grid {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   gap: 30px;
