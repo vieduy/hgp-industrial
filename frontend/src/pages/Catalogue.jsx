@@ -15,6 +15,17 @@ const TAB_ICONS = {
   fireproofing: FireExtinguisher,
 };
 
+// Map brand name -> logo file (used to render the catalogue "brands table").
+const BRAND_LOGOS = {
+  JOTUN: "/partners/jotun.png",
+  AKZONOBEL: "/partners/akzonobel.png",
+  NIPPON: "/partners/nippon.png",
+  SEAMASTER: "/partners/seamaster.png",
+  SAMHWA: "/partners/samhwa.png",
+  DESAM: "/partners/desam.png",
+  "KCC PAINT": "/partners/kcc.png",
+};
+
 function WhyHgp({ items }) {
   const { tr } = useI18n();
   if (!items?.length) return null;
@@ -103,12 +114,27 @@ function CategoryPanel({ cat }) {
       {cat.brands && (
         <Reveal as="div" className="brands">
           <h4>{tr("cat_brands")}</h4>
-          <div>
-            {cat.brands.map((b) => (
-              <span className="chip" key={b}>
-                {b}
-              </span>
-            ))}
+          <div className="brand-grid">
+            {cat.brands.map((b) => {
+              const logo = BRAND_LOGOS[b.toUpperCase()];
+              return (
+                <div className="brand-cell" key={b}>
+                  <div className="brand-cell__name">{b}</div>
+                  <div className="brand-cell__logo">
+                    {logo && (
+                      <img
+                        src={logo}
+                        alt={b}
+                        loading="lazy"
+                        onError={(e) => {
+                          e.currentTarget.style.visibility = "hidden";
+                        }}
+                      />
+                    )}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </Reveal>
       )}

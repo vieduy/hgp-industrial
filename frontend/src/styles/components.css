@@ -802,6 +802,62 @@
 .why-hgp {
   margin: 26px 0;
 }
+/* Brands table — echoes the catalogue PDF "GLOBAL COATING BRANDS" layout */
+.brand-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 12px;
+}
+.brand-cell {
+  width: calc((100% - 32px) / 3);
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  border: 1.5px solid rgba(192, 65, 31, 0.4);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+.brand-cell:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+  border-color: var(--rust);
+}
+.brand-cell__name {
+  font-family: var(--head);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--rust);
+  text-align: center;
+  padding: 12px 8px;
+  border-bottom: 1.5px solid rgba(192, 65, 31, 0.4);
+}
+.brand-cell__logo {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  padding: 26px 22px;
+  min-height: 130px;
+}
+.brand-cell__logo img {
+  max-height: 84px;
+  max-width: 100%;
+  object-fit: contain;
+}
+@media (max-width: 760px) {
+  .brand-cell {
+    width: calc((100% - 16px) / 2);
+  }
+}
+@media (max-width: 460px) {
+  .brand-cell {
+    width: 100%;
+  }
+}
 .bullets ul {
   margin: 0;
   padding: 0;
