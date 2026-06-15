@@ -121,6 +121,9 @@ just restart the container (or the API in dev).
 
 - **Logo:** replace the inline SVG in `frontend/src/components/Logo.jsx` (and
   `frontend/public/logo.svg`) with the real eagle logo.
+- **Hero background:** the homepage hero uses `frontend/public/hero.jpg`
+  (currently a copy of the BW Industrial photo). Replace that file to change the
+  hero image — no code change needed.
 - **Partner logos:** drop files into `frontend/public/partners/`
   (see filenames in the README there).
 - **Project photos:** drop files into `frontend/public/projects/`.

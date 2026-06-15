@@ -5,6 +5,8 @@ import { api } from "../api.js";
 import SectionTitle from "../components/SectionTitle.jsx";
 import PartnerGrid from "../components/PartnerGrid.jsx";
 import ProjectGrid from "../components/ProjectGrid.jsx";
+import Reveal from "../components/Reveal.jsx";
+import Stats from "../components/Stats.jsx";
 
 const OFFERING_ICONS = ["🛡️", "🔩", "🔥"];
 
@@ -17,12 +19,16 @@ export default function Home() {
 
   return (
     <>
-      {/* Hero */}
+      {/* Cinematic hero */}
       <section className="hero">
-        <div className="hero__overlay" />
+        <div className="hero__bg" />
+        <div className="hero__scrim" />
         <div className="container hero__inner">
           <div className="eyebrow hero__eyebrow">HGP INDUSTRIAL CO., LTD</div>
-          <h1 className="hero__title">THINK BIG, GO FAR</h1>
+          <h1 className="hero__title">
+            THINK BIG,<br />
+            <span className="hero__title-accent">GO FAR</span>
+          </h1>
           <p className="hero__sub">{tr(company?.subtitle)}</p>
           <p className="hero__intro">{tr(company?.intro)}</p>
           <div className="hero__actions">
@@ -34,22 +40,34 @@ export default function Home() {
             </a>
           </div>
         </div>
+        <a href="#focus" className="hero__scroll" aria-label="Scroll down">
+          <span />
+        </a>
+      </section>
+
+      {/* Stats band */}
+      <section className="section--ink stats-band">
+        <div className="container">
+          <Stats stats={company?.stats} />
+        </div>
       </section>
 
       {/* Focus areas */}
-      <section className="section">
+      <section className="section" id="focus">
         <div className="container">
-          <SectionTitle
-            eyebrow="HGP INDUSTRIAL"
-            title={tr("home_focus")}
-            center
-          />
+          <Reveal>
+            <SectionTitle
+              eyebrow="HGP INDUSTRIAL"
+              title={tr("home_focus")}
+              center
+            />
+          </Reveal>
           <div className="grid grid-2 focus-grid">
             {company?.focus?.map((f, i) => (
-              <div className="focus-item" key={i}>
+              <Reveal as="div" key={i} delay={i * 80} className="focus-item">
                 <span className="focus-item__num">0{i + 1}</span>
                 <p>{tr(f)}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -58,56 +76,64 @@ export default function Home() {
       {/* Offerings */}
       <section className="section section--soft">
         <div className="container">
-          <SectionTitle
-            eyebrow={tr("home_offerings")}
-            title={tr("nav_catalogue")}
-            center
-          />
+          <Reveal>
+            <SectionTitle
+              eyebrow={tr("home_offerings")}
+              title={tr("nav_catalogue")}
+              center
+            />
+          </Reveal>
           <div className="grid grid-3">
             {catalogue?.map((cat, i) => (
-              <div className="offering card" key={cat.id}>
+              <Reveal as="div" key={cat.id} delay={i * 100} className="offering card">
                 <div className="offering__icon">{OFFERING_ICONS[i]}</div>
                 <h3>{tr(cat.title)}</h3>
                 <p>{tr(cat.tagline)}</p>
-                <Link to="/catalogue" className="offering__link">
+                <Link to={`/catalogue#${cat.id}`} className="offering__link">
                   {tr("learn_more")} →
                 </Link>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Partners */}
+      {/* Partners — marquee */}
       <section className="section">
         <div className="container">
-          <SectionTitle eyebrow="HGP" title={tr("home_partners")} center />
-          <PartnerGrid partners={partners} />
+          <Reveal>
+            <SectionTitle eyebrow="HGP" title={tr("home_partners")} center />
+          </Reveal>
         </div>
+        <Reveal>
+          <PartnerGrid partners={partners} variant="marquee" />
+        </Reveal>
       </section>
 
       {/* Projects */}
       <section className="section section--soft">
         <div className="container">
-          <SectionTitle
-            eyebrow="HGP"
-            title={tr("home_projects")}
-            center
-          />
-          <ProjectGrid projects={projects} />
+          <Reveal>
+            <SectionTitle eyebrow="HGP" title={tr("home_projects")} center />
+          </Reveal>
+          <Reveal>
+            <ProjectGrid projects={projects} />
+          </Reveal>
         </div>
       </section>
 
       {/* Commitment band */}
       <section className="section section--ink commitment">
         <div className="container">
-          <SectionTitle eyebrow="HGP" title={tr("home_commitment")} center />
+          <Reveal>
+            <SectionTitle eyebrow="HGP" title={tr("home_commitment")} center />
+          </Reveal>
           <div className="commitment__row">
             {company?.commitment?.map((c, i) => (
-              <div className="commitment__item" key={i}>
+              <Reveal as="div" key={i} delay={i * 70} className="commitment__item">
                 <span>✓</span>
                 {tr(c)}
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>

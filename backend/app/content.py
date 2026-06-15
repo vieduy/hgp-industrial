@@ -60,6 +60,30 @@ COMPANY = {
         t("Dự án công nghiệp", "Industrial projects"),
         t("Khách hàng doanh nghiệp", "Corporate clients"),
     ],
+    # Headline figures for the animated stats band. All are factual / derivable
+    # from the catalogue (no invented numbers).
+    "stats": [
+        {
+            "value": 8,
+            "suffix": "",
+            "label": t("Thương hiệu đối tác toàn cầu", "Global partner brands"),
+        },
+        {
+            "value": 5,
+            "suffix": "+",
+            "label": t("Dự án tiêu biểu", "Featured projects"),
+        },
+        {
+            "value": 6,
+            "suffix": "",
+            "label": t("Cấp chịu lửa (R15–R120)", "Fire rating levels"),
+        },
+        {
+            "value": 3,
+            "suffix": "",
+            "label": t("Nhóm giải pháp chính", "Core solution lines"),
+        },
+    ],
     "contact": {
         "tax_code": "0318718191",
         "hotline": "0384 928 141",
