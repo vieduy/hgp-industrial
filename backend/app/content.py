@@ -206,7 +206,6 @@ ABOUT = {
 PARTNERS = [
     {"name": "JOTUN", "logo": "/partners/jotun.png"},
     {"name": "AkzoNobel", "logo": "/partners/akzonobel.png"},
-    {"name": "PPG", "logo": "/partners/ppg.png"},
     {"name": "NIPPON PAINT", "logo": "/partners/nippon.png"},
     {"name": "Seamaster", "logo": "/partners/seamaster.png"},
     {"name": "SAMHWA", "logo": "/partners/samhwa.png"},
@@ -347,7 +346,7 @@ _PROTECTIVE_COATINGS = {
             "Coating solutions tailored for industrial plants, warehouses, infrastructure, coastal, and marine environments.",
         ),
     ],
-    "brands": ["JOTUN", "AKZONOBEL", "PPG", "NIPPON", "SEAMASTER", "SAMHWA"],
+    "brands": ["JOTUN", "AKZONOBEL", "NIPPON", "SEAMASTER", "SAMHWA"],
     "why_hgp": [
         t("Chuyên môn kỹ thuật", "Technical Expertise"),
         t("Thương hiệu sơn toàn cầu", "Global Coating Brands"),
