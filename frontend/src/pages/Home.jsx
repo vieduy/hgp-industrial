@@ -25,6 +25,7 @@ const OFFER_IMAGES = [
 export default function Home() {
   const { tr } = useI18n();
   const { data: company } = useApi(api.company);
+  const { data: about } = useApi(api.about);
   const { data: catalogue } = useApi(api.catalogue);
   const { data: partners } = useApi(api.partners);
   const { data: projects } = useApi(api.projects);
@@ -155,19 +156,25 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Commitment band */}
-      <section className="section section--ink commitment">
+      {/* Commitment — rust panel, visually separate from the footer */}
+      <section className="section commitment">
         <div className="container">
-          <Reveal>
-            <SectionTitle eyebrow="HGP INDUSTRIAL" title={tr("home_commitment")} center />
-          </Reveal>
-          <div className="commitment__row">
-            {company?.commitment?.map((c, i) => (
-              <Reveal as="div" key={i} delay={i * 70} className="commitment__item">
-                <span>✓</span>
-                {tr(c)}
-              </Reveal>
-            ))}
+          <div className="commitment__panel">
+            <Reveal>
+              <SectionTitle
+                eyebrow="HGP INDUSTRIAL"
+                title={tr("home_commitment")}
+                center
+              />
+            </Reveal>
+            <div className="commitment__row">
+              {about?.commitment?.map((c, i) => (
+                <Reveal as="div" key={i} delay={i * 70} className="commitment__item">
+                  <span>✓</span>
+                  {tr(c)}
+                </Reveal>
+              ))}
+            </div>
           </div>
         </div>
       </section>

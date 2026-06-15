@@ -559,8 +559,42 @@
   }
 }
 
-/* ---------------- Commitment ---------------- */
+/* ---------------- Commitment (rust panel) ---------------- */
+.commitment {
+  background: var(--cream-soft);
+}
+.commitment__panel {
+  position: relative;
+  overflow: hidden;
+  border-radius: 26px;
+  padding: 56px 40px 50px;
+  text-align: center;
+  background: linear-gradient(135deg, var(--rust-light) 0%, var(--rust-dark) 100%);
+  box-shadow: 0 28px 60px rgba(192, 65, 31, 0.28);
+}
+/* subtle diagonal texture */
+.commitment__panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.05) 0 2px,
+    transparent 2px 26px
+  );
+  pointer-events: none;
+}
+.commitment__panel .sectiontitle {
+  margin-bottom: 28px;
+}
+.commitment__panel .eyebrow {
+  color: rgba(255, 255, 255, 0.82);
+}
+.commitment__panel .section-title {
+  color: #fff;
+}
 .commitment__row {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -571,13 +605,19 @@
   align-items: center;
   gap: 8px;
   font-weight: 600;
-  background: rgba(247, 240, 220, 0.08);
-  border: 1px solid rgba(247, 240, 220, 0.2);
-  padding: 12px 20px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 12px 22px;
   border-radius: 999px;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.commitment__item:hover {
+  background: rgba(255, 255, 255, 0.26);
+  transform: translateY(-2px);
 }
 .commitment__item span {
-  color: var(--rust-light);
+  color: #fff;
   font-weight: 800;
 }
 
@@ -840,8 +880,13 @@
 }
 .footer a {
   color: rgba(247, 240, 220, 0.85);
-  display: inline-block;
+  display: block;
   margin-bottom: 8px;
+}
+/* contact links sit inline within their paragraph */
+.footer__muted a {
+  display: inline;
+  margin-bottom: 0;
 }
 .footer__tag {
   font-family: var(--head);
