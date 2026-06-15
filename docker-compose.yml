@@ -1,0 +1,10 @@
+# Local one-command run of the production image (API + built SPA in one container).
+#   docker compose up --build   → http://localhost:8080
+services:
+  web:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - PORT=8080
+    restart: unless-stopped
