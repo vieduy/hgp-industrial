@@ -863,12 +863,12 @@
   box-shadow: 0 10px 22px rgba(192, 65, 31, 0.35);
 }
 
-/* Business activities */
+/* Business activities — image-header cards */
 .activity {
   background: var(--white);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 30px 26px 28px;
+  overflow: hidden;
   box-shadow: var(--shadow-sm);
   transition: transform 0.25s ease, box-shadow 0.25s ease,
     border-color 0.25s ease;
@@ -878,9 +878,26 @@
   box-shadow: var(--shadow);
   border-color: rgba(192, 65, 31, 0.3);
 }
+.activity__media {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--cream-soft);
+}
+.activity__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.55s ease;
+}
+.activity:hover .activity__media img {
+  transform: scale(1.07);
+}
+.activity__body {
+  padding: 24px 26px 28px;
+}
 .activity h3 {
   font-size: 1.15rem;
-  margin: 20px 0 8px;
+  margin: 0 0 8px;
 }
 .activity p {
   color: var(--muted);

@@ -8,9 +8,6 @@ import PartnerGrid from "../components/PartnerGrid.jsx";
 import ProjectGrid from "../components/ProjectGrid.jsx";
 import Reveal from "../components/Reveal.jsx";
 import {
-  Lightbulb,
-  Boxes,
-  Paintbrush,
   Telescope,
   Target,
   Award,
@@ -20,7 +17,11 @@ import {
 } from "lucide-react";
 
 // Business activities (content order): consulting, building materials, coatings
-const ACTIVITY_ICONS = [Lightbulb, Boxes, Paintbrush];
+const ACTIVITY_IMAGES = [
+  "/visualization/act-consulting.jpg",
+  "/visualization/act-materials.jpg",
+  "/visualization/act-coating.jpg",
+];
 // Core values (content order): QUALITY, PROFESSIONAL, TRUST, DEVELOPMENT
 const VALUE_ICONS = [Award, Briefcase, ShieldCheck, TrendingUp];
 
@@ -61,18 +62,17 @@ export default function About() {
             <SectionTitle eyebrow="HGP INDUSTRIAL" title={tr("about_activities")} />
           </Reveal>
           <div className="grid grid-3">
-            {about?.business_activities?.map((a, i) => {
-              const ActIcon = ACTIVITY_ICONS[i];
-              return (
-                <Reveal as="div" key={i} delay={i * 90} className="activity">
-                  <span className="medallion">
-                    {ActIcon && <ActIcon size={26} strokeWidth={1.9} />}
-                  </span>
+            {about?.business_activities?.map((a, i) => (
+              <Reveal as="div" key={i} delay={i * 90} className="activity">
+                <div className="activity__media">
+                  <img src={ACTIVITY_IMAGES[i]} alt="" loading="lazy" />
+                </div>
+                <div className="activity__body">
                   <h3>{tr(a.title)}</h3>
                   <p>{tr(a.text)}</p>
-                </Reveal>
-              );
-            })}
+                </div>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
