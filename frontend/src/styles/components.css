@@ -488,11 +488,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 80px;
-  padding: 10px 16px;
+  min-height: 150px;
+  padding: 14px 18px;
 }
 .partner-grid__item img {
-  max-height: 58px;
+  max-height: 116px;
   max-width: 100%;
   object-fit: contain;
   transition: transform 0.25s ease;
@@ -971,7 +971,7 @@
   animation-play-state: paused;
 }
 .partner-marquee .partner-grid__item {
-  width: 190px;
+  width: 280px;
   flex: 0 0 auto;
 }
 @keyframes marquee {
