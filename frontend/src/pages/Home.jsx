@@ -127,7 +127,7 @@ export default function Home() {
       <section className="section">
         <div className="container">
           <Reveal>
-            <SectionTitle eyebrow="HGP" title={tr("home_partners")} center />
+            <SectionTitle eyebrow="HGP INDUSTRIAL" title={tr("home_partners")} center />
           </Reveal>
         </div>
         <Reveal>
@@ -139,7 +139,7 @@ export default function Home() {
       <section className="section section--soft">
         <div className="container">
           <Reveal>
-            <SectionTitle eyebrow="HGP" title={tr("home_projects")} center />
+            <SectionTitle eyebrow="HGP INDUSTRIAL" title={tr("home_projects")} center />
           </Reveal>
           <Reveal>
             <ProjectGrid projects={projects} />
@@ -151,7 +151,7 @@ export default function Home() {
       <section className="section section--ink commitment">
         <div className="container">
           <Reveal>
-            <SectionTitle eyebrow="HGP" title={tr("home_commitment")} center />
+            <SectionTitle eyebrow="HGP INDUSTRIAL" title={tr("home_commitment")} center />
           </Reveal>
           <div className="commitment__row">
             {company?.commitment?.map((c, i) => (

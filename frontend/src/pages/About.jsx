@@ -42,7 +42,7 @@ export default function About() {
       <section className="section">
         <div className="container">
           <Reveal>
-            <SectionTitle eyebrow="HGP" title={tr("about_activities")} />
+            <SectionTitle eyebrow="HGP INDUSTRIAL" title={tr("about_activities")} />
           </Reveal>
           <div className="grid grid-3">
             {about?.business_activities?.map((a, i) => (
@@ -77,7 +77,7 @@ export default function About() {
       <section className="section">
         <div className="container">
           <Reveal>
-            <SectionTitle eyebrow="HGP" title={tr("about_values")} center />
+            <SectionTitle eyebrow="HGP INDUSTRIAL" title={tr("about_values")} center />
           </Reveal>
           <div className="grid grid-2 values">
             {about?.core_values?.map((v, i) => (
@@ -94,7 +94,7 @@ export default function About() {
       <section className="section section--soft">
         <div className="container">
           <Reveal>
-            <SectionTitle eyebrow="HGP" title={tr("home_partners")} center />
+            <SectionTitle eyebrow="HGP INDUSTRIAL" title={tr("home_partners")} center />
           </Reveal>
           <Reveal>
             <PartnerGrid partners={partners} />
@@ -106,7 +106,7 @@ export default function About() {
       <section className="section">
         <div className="container">
           <Reveal>
-            <SectionTitle eyebrow="HGP" title={tr("home_projects")} center />
+            <SectionTitle eyebrow="HGP INDUSTRIAL" title={tr("home_projects")} center />
           </Reveal>
           <Reveal>
             <ProjectGrid projects={projects} />

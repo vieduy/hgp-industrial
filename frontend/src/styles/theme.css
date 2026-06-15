@@ -115,10 +115,10 @@ img {
 .eyebrow {
   font-family: var(--head);
   text-transform: uppercase;
-  letter-spacing: 0.18em;
-  font-weight: 600;
+  letter-spacing: 0.16em;
+  font-weight: 700;
   color: var(--rust);
-  font-size: 0.85rem;
+  font-size: 1.1rem;
 }
 
 .section-title {
