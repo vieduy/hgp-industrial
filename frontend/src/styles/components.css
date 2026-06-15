@@ -281,88 +281,81 @@
 }
 .focus-card {
   position: relative;
-  background: var(--white);
-  border: 1px solid var(--line);
+  aspect-ratio: 4 / 3;
   border-radius: var(--radius);
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  border: 1px solid var(--line);
+  /* soft brand backdrop fills the letterbox area so the whole image shows */
+  background: radial-gradient(circle at 50% 38%, #ffffff, var(--cream-soft));
   transition: transform 0.28s ease, box-shadow 0.28s ease,
     border-color 0.28s ease;
 }
 .focus-card:hover {
   transform: translateY(-6px);
   box-shadow: var(--shadow);
-  border-color: rgba(192, 65, 31, 0.35);
+  border-color: rgba(192, 65, 31, 0.4);
 }
-.focus-card__media {
-  position: relative;
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-  background: var(--cream-soft);
-}
-.focus-card__media img {
+/* full image, never cropped */
+.focus-card__img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  padding: 16px;
   transition: transform 0.55s ease;
 }
-.focus-card:hover .focus-card__media img {
-  transform: scale(1.08);
+.focus-card:hover .focus-card__img {
+  transform: scale(1.05);
 }
-.focus-card__num {
+/* rust accent line that grows on hover */
+.focus-card::after {
+  content: "";
   position: absolute;
-  top: 8px;
-  right: 14px;
-  font-family: var(--head);
-  font-size: 2.6rem;
-  font-weight: 700;
-  line-height: 1;
-  color: #fff;
-  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
-}
-.focus-card__icon {
-  position: absolute;
-  left: 20px;
+  left: 0;
   bottom: 0;
-  transform: translateY(50%);
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
-  display: grid;
-  place-items: center;
-  color: #fff;
-  background: linear-gradient(140deg, var(--rust-light), var(--rust-dark));
-  box-shadow: 0 8px 20px rgba(192, 65, 31, 0.4);
-  border: 3px solid var(--white);
-  transition: transform 0.3s ease;
-  z-index: 2;
-}
-.focus-card:hover .focus-card__icon {
-  transform: translateY(50%) rotate(-6deg) scale(1.06);
-}
-.focus-card__body {
-  padding: 38px 22px 28px;
-  flex: 1;
-  display: flex;
-  align-items: center;
-}
-.focus-card__text {
-  margin: 0;
-  font-weight: 600;
-  font-size: 1.05rem;
-  color: var(--ink);
-}
-.focus-card__bar {
   height: 4px;
   width: 100%;
   background: var(--rust);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.3s ease;
+  z-index: 3;
 }
-.focus-card:hover .focus-card__bar {
+.focus-card:hover::after {
   transform: scaleX(1);
+}
+.focus-card__overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 48px 18px 18px;
+  z-index: 2;
+  background: linear-gradient(
+    to top,
+    rgba(18, 14, 12, 0.96) 0%,
+    rgba(18, 14, 12, 0.8) 42%,
+    rgba(18, 14, 12, 0.2) 80%,
+    transparent 100%
+  );
+}
+.focus-card__num {
+  display: block;
+  font-family: var(--head);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.14em;
+  color: var(--rust-light);
+  margin-bottom: 4px;
+}
+.focus-card__text {
+  margin: 0;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.06rem;
+  line-height: 1.35;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.5);
 }
 @media (max-width: 900px) {
   .focus-grid {
