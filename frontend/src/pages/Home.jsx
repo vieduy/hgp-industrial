@@ -7,7 +7,6 @@ import PartnerGrid from "../components/PartnerGrid.jsx";
 import ProjectGrid from "../components/ProjectGrid.jsx";
 import Reveal from "../components/Reveal.jsx";
 import Stats from "../components/Stats.jsx";
-import Icon from "../components/Icon.jsx";
 
 // Focus items (content order): building materials, coatings, finishing, supply.
 const FOCUS_IMAGES = [
@@ -17,7 +16,11 @@ const FOCUS_IMAGES = [
   "/visualization/supply-chain.png",
 ];
 // Offerings (catalogue order): coatings, fasteners, fireproofing.
-const OFFER_ICONS = ["shield", "bolt", "flame"];
+const OFFER_IMAGES = [
+  "/visualization/protect.png",
+  "/visualization/bulon.png",
+  "/visualization/fire-proofing.png",
+];
 
 export default function Home() {
   const { tr } = useI18n();
@@ -104,18 +107,23 @@ export default function Home() {
             {catalogue?.map((cat, i) => (
               <Reveal as="article" key={cat.id} delay={i * 110} className="offer-card">
                 <Link to={`/catalogue#${cat.id}`} className="offer-card__link">
-                  <span className="offer-card__num">0{i + 1}</span>
-                  <span className="offer-card__icon">
-                    <Icon name={OFFER_ICONS[i]} size={32} />
-                  </span>
-                  <h3 className="offer-card__title">{tr(cat.title)}</h3>
-                  <p className="offer-card__tagline">{tr(cat.tagline)}</p>
-                  {cat.badge && (
-                    <span className="offer-card__badge">{cat.badge}</span>
-                  )}
-                  <span className="offer-card__cta">
-                    {tr("learn_more")} <em>→</em>
-                  </span>
+                  <img
+                    className="offer-card__img"
+                    src={OFFER_IMAGES[i]}
+                    alt=""
+                    loading="lazy"
+                  />
+                  <div className="offer-card__overlay">
+                    <span className="offer-card__num">0{i + 1}</span>
+                    <h3 className="offer-card__title">{tr(cat.title)}</h3>
+                    <p className="offer-card__tagline">{tr(cat.tagline)}</p>
+                    {cat.badge && (
+                      <span className="offer-card__badge">{cat.badge}</span>
+                    )}
+                    <span className="offer-card__cta">
+                      {tr("learn_more")} <em>→</em>
+                    </span>
+                  </div>
                 </Link>
               </Reveal>
             ))}
