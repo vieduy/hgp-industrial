@@ -1,0 +1,13 @@
+# Files NOT uploaded to Cloud Build when running `gcloud run deploy --source .`
+# (Dockerfile itself is still used; the frontend is built inside the image.)
+.git
+.gitignore
+node_modules/
+frontend/node_modules/
+frontend/dist/
+__pycache__/
+*.pyc
+.venv/
+venv/
+materials/
+.DS_Store
