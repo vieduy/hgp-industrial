@@ -507,12 +507,16 @@
 }
 
 /* ---------------- Projects ---------------- */
+/* Flex (not grid) so an incomplete last row (e.g. the 4th & 5th of 5
+   projects) is centered instead of left-aligned. */
 .project-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 22px;
 }
 .project-card {
+  width: calc((100% - 44px) / 3);
   background: var(--white);
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -554,8 +558,13 @@
   font-size: 0.9rem;
 }
 @media (max-width: 860px) {
-  .project-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .project-card {
+    width: calc((100% - 22px) / 2);
+  }
+}
+@media (max-width: 560px) {
+  .project-card {
+    width: 100%;
   }
 }
 
