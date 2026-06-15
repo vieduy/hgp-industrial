@@ -7,10 +7,16 @@ import PartnerGrid from "../components/PartnerGrid.jsx";
 import ProjectGrid from "../components/ProjectGrid.jsx";
 import Reveal from "../components/Reveal.jsx";
 import Stats from "../components/Stats.jsx";
-import Icon from "../components/Icon.jsx";
+import {
+  BadgeCheck,
+  BadgeDollarSign,
+  Truck,
+  Headset,
+  HeartHandshake,
+} from "lucide-react";
 
 // Commitment items (content order): genuine, pricing, delivery, support, partnership.
-const COMMIT_ICONS = ["shield", "tag", "truck", "headset", "users"];
+const COMMIT_ICONS = [BadgeCheck, BadgeDollarSign, Truck, Headset, HeartHandshake];
 // Focus items (content order): building materials, coatings, finishing, supply.
 const FOCUS_IMAGES = [
   "/visualization/building-material.png",
@@ -170,14 +176,17 @@ export default function Home() {
             />
           </Reveal>
           <div className="commitment__grid">
-            {about?.commitment?.map((c, i) => (
-              <Reveal as="div" key={i} delay={i * 80} className="commit-card">
-                <span className="commit-card__icon">
-                  <Icon name={COMMIT_ICONS[i]} size={26} />
-                </span>
-                <p className="commit-card__text">{tr(c)}</p>
-              </Reveal>
-            ))}
+            {about?.commitment?.map((c, i) => {
+              const CommitIcon = COMMIT_ICONS[i];
+              return (
+                <Reveal as="div" key={i} delay={i * 80} className="commit-card">
+                  <span className="commit-card__icon">
+                    {CommitIcon && <CommitIcon size={28} strokeWidth={1.9} />}
+                  </span>
+                  <p className="commit-card__text">{tr(c)}</p>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>
