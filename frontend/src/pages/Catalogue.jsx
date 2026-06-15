@@ -15,13 +15,15 @@ const TAB_ICONS = {
   fireproofing: FireExtinguisher,
 };
 
-// Map brand name -> logo file (used to render the catalogue "brands table").
+// Map brand name -> product image for the catalogue "brands table".
+// Prefer the product-can shots in /catalogue; fall back to the brand logo.
 const BRAND_LOGOS = {
-  JOTUN: "/partners/jotun.png",
-  AKZONOBEL: "/partners/akzonobel.png",
-  NIPPON: "/partners/nippon.png",
-  SEAMASTER: "/partners/seamaster.png",
-  SAMHWA: "/partners/samhwa.png",
+  JOTUN: "/catalogue/jotun.png",
+  AKZONOBEL: "/catalogue/akzonobel.png",
+  NIPPON: "/catalogue/nippon.png",
+  SEAMASTER: "/catalogue/seamaster.png",
+  SAMHWA: "/catalogue/samhwa.png",
+  PPG: "/catalogue/ppg.png",
   DESAM: "/partners/desam.png",
   "KCC PAINT": "/partners/kcc.png",
 };

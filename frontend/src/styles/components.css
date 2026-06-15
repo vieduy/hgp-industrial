@@ -796,6 +796,22 @@
   font-size: 1.1rem;
   margin-bottom: 10px;
 }
+/* unified rust accent bar on all catalogue sub-headings */
+.catpanel h4 {
+  position: relative;
+  padding-left: 16px;
+}
+.catpanel h4::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 1.05em;
+  background: var(--rust);
+  border-radius: 2px;
+}
 .bullets,
 .brands,
 .ratings,
@@ -841,12 +857,17 @@
   display: grid;
   place-items: center;
   padding: 26px 22px;
-  min-height: 130px;
+  min-height: 200px;
+  background: var(--cream-soft);
 }
 .brand-cell__logo img {
-  max-height: 84px;
+  max-height: 170px;
   max-width: 100%;
   object-fit: contain;
+  transition: transform 0.3s ease;
+}
+.brand-cell:hover .brand-cell__logo img {
+  transform: scale(1.05);
 }
 @media (max-width: 760px) {
   .brand-cell {
