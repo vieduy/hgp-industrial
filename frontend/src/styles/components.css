@@ -269,55 +269,229 @@
   margin-right: auto;
 }
 
-/* ---------------- Focus ---------------- */
+/* ---------------- Focus cards ---------------- */
+.icon {
+  display: block;
+}
 .focus-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
   margin-top: 10px;
 }
-.focus-item {
-  display: flex;
-  gap: 16px;
-  align-items: flex-start;
-  padding: 20px 22px;
+.focus-card {
+  position: relative;
   background: var(--white);
   border: 1px solid var(--line);
   border-radius: var(--radius);
+  padding: 26px 24px 30px;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease,
+    border-color 0.25s ease;
 }
-.focus-item__num {
+.focus-card::after {
+  /* diagonal sheen that sweeps on hover */
+  content: "";
+  position: absolute;
+  top: -60%;
+  left: -120%;
+  width: 60%;
+  height: 220%;
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgba(192, 65, 31, 0.08),
+    transparent
+  );
+  transform: skewX(-18deg);
+  transition: left 0.6s ease;
+}
+.focus-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow);
+  border-color: rgba(192, 65, 31, 0.35);
+}
+.focus-card:hover::after {
+  left: 140%;
+}
+.focus-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+.focus-card__icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: linear-gradient(140deg, var(--rust-light), var(--rust-dark));
+  box-shadow: 0 8px 20px rgba(192, 65, 31, 0.28);
+  transition: transform 0.3s ease;
+}
+.focus-card:hover .focus-card__icon {
+  transform: rotate(-6deg) scale(1.06);
+}
+.focus-card__num {
   font-family: var(--head);
-  font-size: 1.6rem;
+  font-size: 2.6rem;
   font-weight: 700;
-  color: var(--rust);
+  line-height: 1;
+  color: var(--line);
 }
-.focus-item p {
-  margin: 4px 0 0;
-  font-weight: 500;
+.focus-card__text {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--ink);
+}
+.focus-card__bar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 4px;
+  width: 100%;
+  background: var(--rust);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.focus-card:hover .focus-card__bar {
+  transform: scaleX(1);
+}
+@media (max-width: 900px) {
+  .focus-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 520px) {
+  .focus-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
-/* ---------------- Offerings ---------------- */
-.offering {
-  padding: 32px 26px;
-  text-align: center;
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
+/* ---------------- Offering cards (premium, dark) ---------------- */
+.offer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
 }
-.offering:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow);
+.offer-card {
+  border-radius: 18px;
 }
-.offering__icon {
-  font-size: 2.4rem;
-  margin-bottom: 8px;
+.offer-card__link {
+  position: relative;
+  display: block;
+  height: 100%;
+  padding: 34px 30px 30px;
+  border-radius: 18px;
+  color: var(--cream);
+  background: linear-gradient(160deg, #2f2620 0%, #1c1714 75%);
+  border: 1px solid rgba(247, 240, 220, 0.1);
+  overflow: hidden;
+  transition: transform 0.28s ease, box-shadow 0.28s ease,
+    border-color 0.28s ease;
 }
-.offering h3 {
-  font-size: 1.25rem;
+.offer-card__link::before {
+  /* glow that grows from the corner on hover */
+  content: "";
+  position: absolute;
+  top: -40%;
+  right: -30%;
+  width: 70%;
+  height: 80%;
+  background: radial-gradient(
+    circle,
+    rgba(192, 65, 31, 0.5),
+    transparent 70%
+  );
+  opacity: 0.35;
+  transition: opacity 0.3s ease, transform 0.4s ease;
 }
-.offering p {
-  color: var(--muted);
-  min-height: 48px;
+.offer-card__link:hover {
+  transform: translateY(-8px);
+  border-color: rgba(192, 65, 31, 0.6);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.35);
 }
-.offering__link {
-  font-weight: 700;
+.offer-card__link:hover::before {
+  opacity: 0.7;
+  transform: scale(1.25);
+}
+.offer-card__num {
+  position: absolute;
+  top: 14px;
+  right: 22px;
   font-family: var(--head);
-  letter-spacing: 0.03em;
+  font-size: 4.4rem;
+  font-weight: 700;
+  line-height: 1;
+  color: rgba(247, 240, 220, 0.07);
+}
+.offer-card__icon {
+  position: relative;
+  width: 62px;
+  height: 62px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: linear-gradient(140deg, var(--rust-light), var(--rust-dark));
+  box-shadow: 0 10px 24px rgba(192, 65, 31, 0.4);
+  margin-bottom: 22px;
+  transition: transform 0.3s ease;
+}
+.offer-card__link:hover .offer-card__icon {
+  transform: rotate(-6deg) scale(1.08);
+}
+.offer-card__title {
+  position: relative;
+  font-size: 1.3rem;
+  color: #fff;
+  margin: 0 0 10px;
+}
+.offer-card__tagline {
+  position: relative;
+  color: rgba(247, 240, 220, 0.75);
+  min-height: 46px;
+  margin: 0 0 16px;
+}
+.offer-card__badge {
+  position: relative;
+  display: inline-block;
+  font-family: var(--head);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  padding: 5px 12px;
+  border: 1px solid rgba(224, 101, 63, 0.6);
+  color: var(--rust-light);
+  border-radius: 999px;
+}
+.offer-card__cta {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 22px;
+  font-family: var(--head);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--cream);
+  text-transform: uppercase;
+}
+.offer-card__cta em {
+  font-style: normal;
+  color: var(--rust-light);
+  transition: transform 0.25s ease;
+}
+.offer-card__link:hover .offer-card__cta em {
+  transform: translateX(6px);
+}
+@media (max-width: 860px) {
+  .offer-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ---------------- Partners ---------------- */
@@ -787,33 +961,6 @@
   .stats__item:nth-child(2)::after {
     display: none;
   }
-}
-
-/* Offerings — richer hover */
-.offering {
-  position: relative;
-  overflow: hidden;
-}
-.offering::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: var(--rust);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.3s ease;
-}
-.offering:hover::before {
-  transform: scaleX(1);
-}
-.offering__icon {
-  transition: transform 0.3s ease;
-}
-.offering:hover .offering__icon {
-  transform: scale(1.15) translateY(-2px);
 }
 
 /* Partner marquee */

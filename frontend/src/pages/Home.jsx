@@ -7,8 +7,12 @@ import PartnerGrid from "../components/PartnerGrid.jsx";
 import ProjectGrid from "../components/ProjectGrid.jsx";
 import Reveal from "../components/Reveal.jsx";
 import Stats from "../components/Stats.jsx";
+import Icon from "../components/Icon.jsx";
 
-const OFFERING_ICONS = ["🛡️", "🔩", "🔥"];
+// Focus items (content order): building materials, coatings, finishing, supply.
+const FOCUS_ICONS = ["building", "shield", "roller", "truck"];
+// Offerings (catalogue order): coatings, fasteners, fireproofing.
+const OFFER_ICONS = ["shield", "bolt", "flame"];
 
 export default function Home() {
   const { tr } = useI18n();
@@ -62,11 +66,17 @@ export default function Home() {
               center
             />
           </Reveal>
-          <div className="grid grid-2 focus-grid">
+          <div className="focus-grid">
             {company?.focus?.map((f, i) => (
-              <Reveal as="div" key={i} delay={i * 80} className="focus-item">
-                <span className="focus-item__num">0{i + 1}</span>
-                <p>{tr(f)}</p>
+              <Reveal as="article" key={i} delay={i * 90} className="focus-card">
+                <div className="focus-card__top">
+                  <span className="focus-card__icon">
+                    <Icon name={FOCUS_ICONS[i]} size={28} />
+                  </span>
+                  <span className="focus-card__num">0{i + 1}</span>
+                </div>
+                <p className="focus-card__text">{tr(f)}</p>
+                <span className="focus-card__bar" />
               </Reveal>
             ))}
           </div>
@@ -74,7 +84,7 @@ export default function Home() {
       </section>
 
       {/* Offerings */}
-      <section className="section section--soft">
+      <section className="section section--soft offer-section">
         <div className="container">
           <Reveal>
             <SectionTitle
@@ -83,14 +93,22 @@ export default function Home() {
               center
             />
           </Reveal>
-          <div className="grid grid-3">
+          <div className="offer-grid">
             {catalogue?.map((cat, i) => (
-              <Reveal as="div" key={cat.id} delay={i * 100} className="offering card">
-                <div className="offering__icon">{OFFERING_ICONS[i]}</div>
-                <h3>{tr(cat.title)}</h3>
-                <p>{tr(cat.tagline)}</p>
-                <Link to={`/catalogue#${cat.id}`} className="offering__link">
-                  {tr("learn_more")} →
+              <Reveal as="article" key={cat.id} delay={i * 110} className="offer-card">
+                <Link to={`/catalogue#${cat.id}`} className="offer-card__link">
+                  <span className="offer-card__num">0{i + 1}</span>
+                  <span className="offer-card__icon">
+                    <Icon name={OFFER_ICONS[i]} size={32} />
+                  </span>
+                  <h3 className="offer-card__title">{tr(cat.title)}</h3>
+                  <p className="offer-card__tagline">{tr(cat.tagline)}</p>
+                  {cat.badge && (
+                    <span className="offer-card__badge">{cat.badge}</span>
+                  )}
+                  <span className="offer-card__cta">
+                    {tr("learn_more")} <em>→</em>
+                  </span>
                 </Link>
               </Reveal>
             ))}

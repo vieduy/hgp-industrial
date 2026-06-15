@@ -257,6 +257,7 @@ PROJECTS = [
 
 _PROTECTIVE_COATINGS = {
     "id": "protective-coatings",
+    "badge": "ISO 12944",
     "title": t("Sơn phủ bảo vệ – Hệ sơn", "Protective Coatings – Paint System"),
     "tagline": t(
         "Bảo vệ kết cấu thép cho tuổi thọ dài lâu.",
@@ -361,6 +362,7 @@ _PROTECTIVE_COATINGS = {
 
 _FASTENERS = {
     "id": "fasteners",
+    "badge": "DIN · ASTM · JIS",
     "title": t("Bu lông & Phụ kiện", "Fasteners – Bolts & Accessories"),
     "tagline": t(
         "Kết nối chắc chắn cho kết cấu bền vững.",
@@ -436,6 +438,7 @@ _FASTENERS = {
 
 _FIREPROOFING = {
     "id": "fireproofing",
+    "badge": "QCVN 06:2022",
     "title": t("Sơn chống cháy (Dịch vụ thi công)", "Fireproofing Paint (Application Service)"),
     "tagline": t(
         "Sơn chống cháy bảo vệ con người và kết cấu.",
