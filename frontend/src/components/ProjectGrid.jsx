@@ -1,9 +1,10 @@
 import { useI18n } from "../i18n.jsx";
+import { MapPin } from "lucide-react";
 
-// Featured projects. Project photos can be exported from the company profile
-// PDF into `frontend/public/projects/`. Until then a branded gradient
-// placeholder with the project initial is shown.
-export default function ProjectGrid({ projects }) {
+// Featured projects as image-overlay gallery cards. Project photos live in
+// `frontend/public/projects/`; if one is missing, a branded gradient
+// placeholder with the project initial is shown behind the overlay.
+export default function ProjectGrid({ projects = [] }) {
   const { tr } = useI18n();
   return (
     <div className="project-grid">
@@ -25,9 +26,12 @@ export default function ProjectGrid({ projects }) {
                 }}
               />
             </div>
-            <div className="project-card__body">
+            <div className="project-card__overlay">
               <h4>{name}</h4>
-              <span>{tr(p.location)}</span>
+              <span className="project-card__loc">
+                <MapPin size={15} strokeWidth={2} />
+                {tr(p.location)}
+              </span>
             </div>
           </article>
         );

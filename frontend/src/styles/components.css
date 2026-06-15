@@ -516,16 +516,40 @@
   gap: 22px;
 }
 .project-card {
+  position: relative;
   width: calc((100% - 44px) / 3);
-  background: var(--white);
-  border: 1px solid var(--line);
+  aspect-ratio: 4 / 3;
   border-radius: var(--radius);
   overflow: hidden;
+  border: 1px solid var(--line);
   box-shadow: var(--shadow-sm);
+  background: #ddd;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.project-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 22px 44px rgba(43, 38, 34, 0.22);
+}
+/* rust accent line that grows on hover */
+.project-card::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 4px;
+  width: 100%;
+  background: var(--rust);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s ease;
+  z-index: 2;
+}
+.project-card:hover::after {
+  transform: scaleX(1);
 }
 .project-card__media {
-  aspect-ratio: 16 / 10;
-  background: #ddd;
+  position: absolute;
+  inset: 0;
 }
 .project-card__media.is-placeholder {
   background: linear-gradient(135deg, var(--rust), var(--rust-dark));
@@ -544,18 +568,43 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.55s ease;
 }
-.project-card__body {
-  padding: 16px 18px;
+.project-card:hover .project-card__media img {
+  transform: scale(1.08);
 }
-.project-card__body h4 {
-  margin: 0 0 4px;
+.project-card__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 24px 22px;
+  background: linear-gradient(
+    to top,
+    rgba(18, 14, 12, 0.92) 0%,
+    rgba(18, 14, 12, 0.45) 46%,
+    rgba(18, 14, 12, 0) 78%
+  );
+}
+.project-card__overlay h4 {
+  margin: 0 0 6px;
   text-transform: none;
-  font-size: 1.05rem;
+  font-size: 1.15rem;
+  color: #fff;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.5);
 }
-.project-card__body span {
-  color: var(--muted);
+.project-card__loc {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(247, 240, 220, 0.88);
   font-size: 0.9rem;
+}
+.project-card__loc svg {
+  color: var(--rust-light);
+  flex-shrink: 0;
 }
 @media (max-width: 860px) {
   .project-card {
@@ -569,8 +618,9 @@
 }
 
 /* ---------------- Commitment (icon-card row) ---------------- */
+/* Warm rosy gradient — distinct from the cream-soft Projects section above. */
 .commitment {
-  background: var(--cream-soft);
+  background: linear-gradient(180deg, #fbf1ea 0%, #f5e5d8 100%);
 }
 .commitment__grid {
   display: grid;
@@ -1041,21 +1091,6 @@
     width: auto;
     justify-content: center;
   }
-}
-
-/* Project cards — zoom on hover */
-.project-card {
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-.project-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow);
-}
-.project-card__media img {
-  transition: transform 0.5s ease;
-}
-.project-card:hover .project-card__media img {
-  transform: scale(1.07);
 }
 
 /* ---------------- Tabbed catalogue ---------------- */
