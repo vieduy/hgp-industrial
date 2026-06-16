@@ -1,12 +1,20 @@
 import { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import Logo from "./Logo.jsx";
+import Icon from "./Icon.jsx";
+import SocialMark from "./SocialMark.jsx";
 import LangToggle from "./LangToggle.jsx";
 import { useI18n } from "../i18n.jsx";
+import { useApi } from "../hooks.js";
+import { api } from "../api.js";
 
 export default function Navbar() {
-  const { tr } = useI18n();
+  const { tr, lang } = useI18n();
   const [open, setOpen] = useState(false);
+  const { data: company } = useApi(api.company);
+  const c = company?.contact;
+  const legalName =
+    lang === "vi" ? company?.name_vi || company?.name : company?.name;
 
   const links = [
     { to: "/", key: "nav_home", end: true },
@@ -16,9 +24,61 @@ export default function Navbar() {
 
   return (
     <header className="nav">
+      <div className="nav__topbar">
+        <div className="container nav__topbar-inner">
+          <span className="nav__company">{legalName}</span>
+          {c && (
+            <div className="nav__utility">
+              <a
+                className="nav__hotline"
+                href={`tel:${c.hotline.replace(/\s/g, "")}`}
+              >
+                <Icon name="phone" size={15} />
+                <span>
+                  <small>{tr("contact_hotline")}</small>
+                  {c.hotline}
+                </span>
+              </a>
+              {(c.zalo || c.facebook) && (
+                <>
+                  <span className="nav__divider" />
+                  <span className="nav__follow">
+                    {tr({ vi: "Theo dõi", en: "Follow" })}
+                  </span>
+                  <div className="nav__socials">
+                    {c.zalo && (
+                      <a
+                        href={c.zalo}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label="Zalo"
+                        className="nav__social"
+                      >
+                        <SocialMark name="zalo" />
+                      </a>
+                    )}
+                    {c.facebook && (
+                      <a
+                        href={c.facebook}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label="Facebook"
+                        className="nav__social"
+                      >
+                        <SocialMark name="facebook" />
+                      </a>
+                    )}
+                  </div>
+                </>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+
       <div className="container nav__inner">
         <Link to="/" className="nav__brand" onClick={() => setOpen(false)}>
-          <Logo />
+          <Logo size={56} />
         </Link>
 
         <button

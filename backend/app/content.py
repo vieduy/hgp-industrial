@@ -93,6 +93,10 @@ COMPANY = {
             "https://www.google.com/maps/search/"
             "175+street+no+2,+Tang+Nhon+Phu+Ward,+Ho+Chi+Minh+city"
         ),
+        # Social channels shown in the header utility bar. Update the Facebook
+        # URL to the real page when available.
+        "zalo": "https://zalo.me/0384928141",
+        "facebook": "https://www.facebook.com/hgpindustrial",
     },
 }
 

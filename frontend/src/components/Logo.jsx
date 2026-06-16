@@ -11,8 +11,12 @@ export default function Logo({ size = 40, light = false }) {
         alt="HGP Industrial"
         width={size}
         height={size}
+        style={{ width: size, height: size }}
       />
-      <span className="logo__word" style={{ color: word }}>
+      <span
+        className="logo__word"
+        style={{ color: word, fontSize: `${(size / 40) * 1.5}rem` }}
+      >
         HGP
         <small>INDUSTRIAL</small>
       </span>
