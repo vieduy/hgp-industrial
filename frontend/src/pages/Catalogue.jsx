@@ -118,7 +118,12 @@ function CategoryPanel({ cat }) {
           <h4>{tr("cat_brands")}</h4>
           <div className="brand-grid">
             {cat.brands.map((b) => {
-              const logo = BRAND_LOGOS[b.toUpperCase()];
+              // Fireproofing shows the brand logos from /partners; other
+              // lines use the product-can shots mapped in BRAND_LOGOS.
+              const logo =
+                cat.id === "fireproofing"
+                  ? `/partners/${b.toLowerCase().replace(/\s+/g, "")}.png`
+                  : BRAND_LOGOS[b.toUpperCase()];
               return (
                 <div className="brand-cell" key={b}>
                   <div className="brand-cell__name">{b}</div>
