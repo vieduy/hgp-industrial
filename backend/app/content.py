@@ -381,6 +381,7 @@ _FASTENERS = {
     "tables": [
         {
             "title": t("Bu lông neo (Anchor Bolts)", "Anchor Bolts"),
+            "image": "/catalogue/anchor.png",
             "columns": [t("Thông số", "Property"), t("Chi tiết", "Detail")],
             "rows": [
                 [t("Tiêu chuẩn", "Standard"), "DIN, ASTM A307, ASTM A325, ASTM F1554, JIS B1178, TCVN 1916"],
@@ -393,6 +394,7 @@ _FASTENERS = {
         },
         {
             "title": t("Bu lông liên kết (Connecting Bolts)", "Connecting Bolts"),
+            "image": "/catalogue/connect.png",
             "columns": [t("Thông số", "Property"), t("Chi tiết", "Detail")],
             "rows": [
                 [t("Tiêu chuẩn", "Standard"), "DIN 933, DIN 931, ASTM A307/A325/A490, JIS B1186 F10T/S10T, ISO"],
@@ -402,15 +404,25 @@ _FASTENERS = {
             ],
         },
         {
-            "title": t("Cáp & Thanh giằng (Wire Rope & Bracing Rod)", "Wire Rope & Bracing Rod"),
-            "columns": [t("Hạng mục", "Item"), t("Chi tiết", "Detail")],
+            "title": t("Cáp (Wire Rope)", "Wire Rope"),
+            "image": "/catalogue/wire.png",
+            "columns": [t("Thông số", "Property"), t("Chi tiết", "Detail")],
             "rows": [
-                [t("Cáp – Loại", "Wire rope – Type"), "6x12 + FC, 6x37 + IRC"],
-                [t("Cáp – Lớp phủ", "Wire rope – Coating"), t("Trần, Mạ kẽm, SUS 304, Bọc PVC", "Plain, Galvanized, SUS 304, PVC cover")],
-                [t("Cáp – Phụ kiện", "Wire rope – Accessories"), t("Tăng đơ, Khóa cáp, Bu lông mắt", "Turnbuckle, Wire rope clip, Eye bolts")],
-                [t("Thanh giằng – Kích thước", "Bracing rod – Size"), "M10 – M36"],
-                [t("Thanh giằng – Cấp bền", "Bracing rod – Grade"), "4.6, 5.6, 6.6, 8.8"],
-                [t("Thanh giằng – Lớp phủ", "Bracing rod – Coating"), t("Đen oxy hóa, Mạ kẽm, Nhúng nóng", "Black oxide, Zinc plate, Hot dip")],
+                [t("Loại", "Type"), "6x12 + FC, 6x37 + IRC"],
+                [t("Lớp phủ", "Coating"), t("Trần, Mạ kẽm, SUS 304, Bọc PVC", "Plain, Galvanized, SUS 304, PVC cover")],
+                [t("Kích thước", "Size"), "M6 – M27"],
+                [t("Phụ kiện", "Accessories"), t("Tăng đơ, Khóa cáp, Bu lông mắt", "Turnbuckle, Wire rope clip, Eye bolts")],
+            ],
+        },
+        {
+            "title": t("Thanh giằng (Bracing Rod)", "Bracing Rod"),
+            "image": "/catalogue/bracing.png",
+            "columns": [t("Thông số", "Property"), t("Chi tiết", "Detail")],
+            "rows": [
+                [t("Kích thước", "Size"), "M10 – M36"],
+                [t("Cấp bền", "Grade"), "4.6, 5.6, 6.6, 8.8"],
+                [t("Lớp phủ", "Coating"), t("Đen oxy hóa, Mạ kẽm, Nhúng nóng", "Black oxide, Zinc plate, Hot dip")],
+                [t("Phụ kiện", "Accessories"), t("Khớp nối, Tăng đơ, Đai ốc, Long đen", "Couple, Turnbuckle, Nuts, Washer")],
             ],
         },
         {
@@ -421,6 +433,13 @@ _FASTENERS = {
                 [t("Bu lông hóa chất (Chemical)", "Chemical bolts"), "M12–M24, Fischer / Ramset / Hilti"],
                 [t("Vít (Screw)", "Screw"), "AS1566, Class 3 & Class 4"],
                 [t("Đinh chống cắt (Shear Stud)", "Shear stud"), "ISO / GB, M16, M19, M22, M25"],
+            ],
+            # One illustration per row, shown as a strip below the table.
+            "gallery": [
+                {"image": "/catalogue/expansion.png", "label": t("Bu lông nở", "Expansion bolts")},
+                {"image": "/catalogue/chemical.png", "label": t("Bu lông hóa chất", "Chemical bolts")},
+                {"image": "/catalogue/screw.png", "label": t("Vít", "Screw")},
+                {"image": "/catalogue/shear.png", "label": t("Đinh chống cắt", "Shear stud")},
             ],
         },
     ],
