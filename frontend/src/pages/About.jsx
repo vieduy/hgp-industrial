@@ -7,6 +7,23 @@ import SectionTitle from "../components/SectionTitle.jsx";
 import PartnerGrid from "../components/PartnerGrid.jsx";
 import ProjectGrid from "../components/ProjectGrid.jsx";
 import Reveal from "../components/Reveal.jsx";
+import {
+  Telescope,
+  Target,
+  Award,
+  Briefcase,
+  ShieldCheck,
+  TrendingUp,
+} from "lucide-react";
+
+// Business activities (content order): consulting, building materials, coatings
+const ACTIVITY_IMAGES = [
+  "/visualization/act-consulting.jpg",
+  "/visualization/act-materials.jpg",
+  "/visualization/act-coating.jpg",
+];
+// Core values (content order): QUALITY, PROFESSIONAL, TRUST, DEVELOPMENT
+const VALUE_ICONS = [Award, Briefcase, ShieldCheck, TrendingUp];
 
 export default function About() {
   const { tr } = useI18n();
@@ -46,9 +63,14 @@ export default function About() {
           </Reveal>
           <div className="grid grid-3">
             {about?.business_activities?.map((a, i) => (
-              <Reveal as="div" key={i} delay={i * 90} className="card activity">
-                <h3>{tr(a.title)}</h3>
-                <p>{tr(a.text)}</p>
+              <Reveal as="div" key={i} delay={i * 90} className="activity">
+                <div className="activity__media">
+                  <img src={ACTIVITY_IMAGES[i]} alt="" loading="lazy" />
+                </div>
+                <div className="activity__body">
+                  <h3>{tr(a.title)}</h3>
+                  <p>{tr(a.text)}</p>
+                </div>
               </Reveal>
             ))}
           </div>
@@ -58,11 +80,17 @@ export default function About() {
       {/* Vision + Mission */}
       <section className="section section--soft">
         <div className="container grid grid-2 vm">
-          <Reveal as="div" className="card vm__card">
+          <Reveal as="div" className="vm__card">
+            <span className="medallion medallion--lg">
+              <Telescope size={28} strokeWidth={1.9} />
+            </span>
             <div className="eyebrow">{tr("about_vision")}</div>
             <p className="vm__text">{tr(about?.vision)}</p>
           </Reveal>
-          <Reveal as="div" delay={100} className="card vm__card">
+          <Reveal as="div" delay={100} className="vm__card">
+            <span className="medallion medallion--lg">
+              <Target size={28} strokeWidth={1.9} />
+            </span>
             <div className="eyebrow">{tr("about_mission")}</div>
             <ul className="vm__list">
               {about?.mission?.map((m, i) => (
@@ -80,12 +108,20 @@ export default function About() {
             <SectionTitle eyebrow="HGP INDUSTRIAL" title={tr("about_values")} center />
           </Reveal>
           <div className="grid grid-2 values">
-            {about?.core_values?.map((v, i) => (
-              <Reveal as="div" key={v.key} delay={i * 80} className="value">
-                <h3>{v.key}</h3>
-                <p>{tr(v.text)}</p>
-              </Reveal>
-            ))}
+            {about?.core_values?.map((v, i) => {
+              const ValIcon = VALUE_ICONS[i];
+              return (
+                <Reveal as="div" key={v.key} delay={i * 80} className="value">
+                  <span className="medallion">
+                    {ValIcon && <ValIcon size={26} strokeWidth={1.9} />}
+                  </span>
+                  <div className="value__body">
+                    <h3>{v.key}</h3>
+                    <p>{tr(v.text)}</p>
+                  </div>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>

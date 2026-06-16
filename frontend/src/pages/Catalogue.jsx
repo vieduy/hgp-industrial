@@ -6,8 +6,27 @@ import { api } from "../api.js";
 import SectionTitle from "../components/SectionTitle.jsx";
 import SpecTable from "../components/SpecTable.jsx";
 import Reveal from "../components/Reveal.jsx";
+import { PaintRoller, Wrench, FireExtinguisher } from "lucide-react";
 
-const TAB_ICONS = { "protective-coatings": "🛡️", fasteners: "🔩", fireproofing: "🔥" };
+// Clean line icons per product line (color follows the tab state via currentColor).
+const TAB_ICONS = {
+  "protective-coatings": PaintRoller,
+  fasteners: Wrench,
+  fireproofing: FireExtinguisher,
+};
+
+// Map brand name -> product image for the catalogue "brands table".
+// Prefer the product-can shots in /catalogue; fall back to the brand logo.
+const BRAND_LOGOS = {
+  JOTUN: "/catalogue/jotun.png",
+  AKZONOBEL: "/catalogue/akzonobel.png",
+  NIPPON: "/catalogue/nippon.png",
+  SEAMASTER: "/catalogue/seamaster.png",
+  SAMHWA: "/catalogue/samhwa.png",
+  PPG: "/catalogue/ppg.png",
+  DESAM: "/partners/desam.png",
+  "KCC PAINT": "/partners/kcc.png",
+};
 
 function WhyHgp({ items }) {
   const { tr } = useI18n();
@@ -97,12 +116,27 @@ function CategoryPanel({ cat }) {
       {cat.brands && (
         <Reveal as="div" className="brands">
           <h4>{tr("cat_brands")}</h4>
-          <div>
-            {cat.brands.map((b) => (
-              <span className="chip" key={b}>
-                {b}
-              </span>
-            ))}
+          <div className="brand-grid">
+            {cat.brands.map((b) => {
+              const logo = BRAND_LOGOS[b.toUpperCase()];
+              return (
+                <div className="brand-cell" key={b}>
+                  <div className="brand-cell__name">{b}</div>
+                  <div className="brand-cell__logo">
+                    {logo && (
+                      <img
+                        src={logo}
+                        alt={b}
+                        loading="lazy"
+                        onError={(e) => {
+                          e.currentTarget.style.visibility = "hidden";
+                        }}
+                      />
+                    )}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </Reveal>
       )}
@@ -150,16 +184,21 @@ export default function Catalogue() {
       {/* Sticky tab bar */}
       <div className="cat-tabs">
         <div className="container cat-tabs__inner">
-          {catalogue?.map((c, i) => (
-            <button
-              key={c.id}
-              className={`cat-tab ${i === active ? "is-active" : ""}`}
-              onClick={() => setActive(i)}
-            >
-              <span className="cat-tab__icon">{TAB_ICONS[c.id]}</span>
-              <span className="cat-tab__label">{tr(c.title)}</span>
-            </button>
-          ))}
+          {catalogue?.map((c, i) => {
+            const TabIcon = TAB_ICONS[c.id];
+            return (
+              <button
+                key={c.id}
+                className={`cat-tab ${i === active ? "is-active" : ""}`}
+                onClick={() => setActive(i)}
+              >
+                <span className="cat-tab__icon">
+                  {TabIcon && <TabIcon size={20} strokeWidth={1.9} />}
+                </span>
+                <span className="cat-tab__label">{tr(c.title)}</span>
+              </button>
+            );
+          })}
         </div>
       </div>
 
