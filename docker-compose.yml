@@ -7,4 +7,9 @@ services:
       - "8080:8080"
     environment:
       - PORT=8080
+      # LLM assistant gateway. Override LLM_API_KEY in your shell / .env to
+      # avoid committing secrets; these defaults match the dev gateway.
+      - LLM_BASE_URL=${LLM_BASE_URL:-https://ai-gateway01.qualgo.ai/v1/chat/completions}
+      - LLM_MODEL=${LLM_MODEL:-openai/gpt-5.5}
+      - LLM_API_KEY=${LLM_API_KEY:-sk-w97_sDzFndASEx-8_cvCbA}
     restart: unless-stopped

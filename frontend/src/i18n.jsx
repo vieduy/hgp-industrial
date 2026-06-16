@@ -48,8 +48,26 @@ const UI = {
   contact_map: { vi: "Xem trên bản đồ", en: "View on map" },
 
   footer_rights: {
-    vi: "Bảo lưu mọi quyền.",
+    vi: "All rights reserved.",
     en: "All rights reserved.",
+  },
+
+  chat_title: { vi: "Trợ lý HGP", en: "HGP Assistant" },
+  chat_subtitle: {
+    vi: "Hỏi về sản phẩm, dịch vụ & liên hệ",
+    en: "Ask about products, services & contact",
+  },
+  chat_greeting: {
+    vi: "Xin chào! Tôi có thể giúp gì cho bạn về HGP Industrial?",
+    en: "Hi! How can I help you with HGP Industrial?",
+  },
+  chat_placeholder: { vi: "Nhập tin nhắn…", en: "Type a message…" },
+  chat_send: { vi: "Gửi", en: "Send" },
+  chat_open: { vi: "Mở trợ lý", en: "Open assistant" },
+  chat_close: { vi: "Đóng", en: "Close" },
+  chat_error: {
+    vi: "Xin lỗi, đã có lỗi xảy ra. Vui lòng thử lại hoặc gọi hotline 0384 928 141.",
+    en: "Sorry, something went wrong. Please try again or call 0384 928 141.",
   },
 };
 
