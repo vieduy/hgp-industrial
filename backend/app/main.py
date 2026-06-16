@@ -14,12 +14,13 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse, JSONResponse
+from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
+from pydantic import BaseModel
 
-from . import content
+from . import assistant, content
 
 app = FastAPI(
     title="HGP Industrial API",
@@ -33,7 +34,7 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_methods=["GET"],
+    allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
 
@@ -77,6 +78,42 @@ def get_partners() -> list[dict]:
 def get_projects() -> list[dict]:
     """Featured projects."""
     return content.PROJECTS
+
+
+# ---------------------------------------------------------------------------
+# Chat assistant
+# ---------------------------------------------------------------------------
+
+
+class ChatMessage(BaseModel):
+    role: str
+    content: str
+
+
+class ChatRequest(BaseModel):
+    messages: list[ChatMessage]
+
+
+@app.post("/api/chat")
+def post_chat(req: ChatRequest) -> StreamingResponse:
+    """Forward the conversation to the LLM gateway and stream the reply.
+
+    Stateless: the frontend sends the full history each time. The persona
+    system prompt is added server-side (see :mod:`app.assistant`). The reply is
+    streamed back as ``text/plain`` chunks so the UI can render it token by
+    token.
+    """
+    messages = [m.model_dump() for m in req.messages if m.content.strip()]
+    if not messages:
+        raise HTTPException(status_code=400, detail="No message provided.")
+    try:
+        # Open the upstream connection now so gateway errors surface as a 502
+        # here, before we commit to a streaming 200 response.
+        stream = assistant.chat_stream(messages)
+    except assistant.AssistantError as exc:
+        # 502: we (the API) are fine, but the upstream model failed.
+        raise HTTPException(status_code=502, detail=str(exc)) from exc
+    return StreamingResponse(stream, media_type="text/plain; charset=utf-8")
 
 
 # ---------------------------------------------------------------------------
