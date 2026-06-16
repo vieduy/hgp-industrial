@@ -20,7 +20,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <h4>{tr("nav_catalogue")}</h4>
+          <h4>{tr({ vi: "Trang", en: "Page" })}</h4>
           <Link to="/catalogue">{tr("nav_catalogue")}</Link>
           <Link to="/about">{tr("nav_about")}</Link>
           <a href="/about#contact">{tr("nav_contact")}</a>

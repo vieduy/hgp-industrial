@@ -25,10 +25,6 @@ COMPANY = {
     "name": "HGP INDUSTRIAL CO., LTD",
     "name_vi": "CÔNG TY TNHH HGP INDUSTRIAL",
     "tagline": "THINK BIG, GO FAR",
-    "subtitle": t(
-        "Vật liệu xây dựng • Vật tư công nghiệp • Giải pháp sơn phủ",
-        "Building Materials • Industrial Supply • Coating Solutions",
-    ),
     "intro": t(
         "HGP INDUSTRIAL là đơn vị chuyên cung cấp vật liệu xây dựng, sơn và "
         "giải pháp vật tư công trình với định hướng chuyên nghiệp – hiện đại – "
