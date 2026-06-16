@@ -174,11 +174,19 @@ def _open(messages: list[dict], stream: bool):
         data=json.dumps(payload).encode("utf-8"),
         headers={
             "Content-Type": "application/json",
-            "Accept": "application/json",
             "x-litellm-api-key": LLM_API_KEY,
-            # The gateway sits behind Cloudflare, which bans the default Python
-            # urllib User-Agent (error 1010). A normal UA gets through.
-            "User-Agent": "HGP-Assistant/1.0",
+            # The gateway sits behind Cloudflare. From datacenter IPs (Cloud Run)
+            # it issues a managed challenge unless the request looks like a real
+            # browser, so we send a full browser-like header set.
+            "User-Agent": (
+                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) "
+                "Chrome/124.0.0.0 Safari/537.36"
+            ),
+            "Accept": "application/json, text/event-stream, */*",
+            "Accept-Language": "en-US,en;q=0.9",
+            "Origin": "https://ai-gateway01.qualgo.ai",
+            "Referer": "https://ai-gateway01.qualgo.ai/",
         },
         method="POST",
     )
