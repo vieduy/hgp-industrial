@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import Logo from "./Logo.jsx";
 import Icon from "./Icon.jsx";
@@ -11,6 +11,15 @@ import { api } from "../api.js";
 export default function Navbar() {
   const { tr, lang } = useI18n();
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  // Collapse the topbar and shrink the bar once the user scrolls past the hero edge.
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
   const { data: company } = useApi(api.company);
   const c = company?.contact;
   const legalName =
@@ -23,7 +32,7 @@ export default function Navbar() {
   ];
 
   return (
-    <header className="nav">
+    <header className={`nav ${scrolled ? "nav--scrolled" : ""}`}>
       <div className="nav__topbar">
         <div className="container nav__topbar-inner">
           <span className="nav__company">{legalName}</span>
