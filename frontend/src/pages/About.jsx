@@ -45,7 +45,7 @@ export default function About() {
 
   return (
     <>
-      <section className="pagehead">
+      <section className="pagehead pagehead--about">
         <div className="container">
           <SectionTitle
             eyebrow="HGP INDUSTRIAL"

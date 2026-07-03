@@ -83,8 +83,8 @@ COMPANY = {
     "contact": {
         "tax_code": "0318718191",
         "hotline": "0384 928 141",
-        "email": "HGP.ind.vn@gmail.com",
-        "website": "www.hgpindustrial.com.vn",
+        "email": "contact@hgpindustrial.com.vn",
+        "website": "hgpindustrial.com.vn",
         "address": t(
             "175 đường số 2, Phường Tăng Nhơn Phú, TP. Hồ Chí Minh",
             "175 Street No. 2, Tang Nhon Phu Ward, Ho Chi Minh City",

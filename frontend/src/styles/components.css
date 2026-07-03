@@ -6,11 +6,26 @@
   background: rgba(247, 240, 220, 0.92);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--line);
+  transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.nav--scrolled {
+  background: rgba(247, 240, 220, 0.97);
+  border-bottom-color: transparent;
+  box-shadow: 0 6px 24px rgba(30, 26, 20, 0.1);
 }
 .nav__topbar {
   position: relative;
   background: var(--ink);
   color: rgba(247, 240, 220, 0.85);
+  /* Collapses away on scroll to give the main bar a tighter footprint. */
+  max-height: 60px;
+  opacity: 1;
+  overflow: hidden;
+  transition: max-height 0.35s ease, opacity 0.25s ease;
+}
+.nav--scrolled .nav__topbar {
+  max-height: 0;
+  opacity: 0;
 }
 /* Rust hairline that bookends the footer's top accent. */
 .nav__topbar::before {
@@ -117,6 +132,10 @@
   align-items: center;
   justify-content: space-between;
   height: 88px;
+  transition: height 0.3s ease;
+}
+.nav--scrolled .nav__inner {
+  height: 64px;
 }
 .nav__brand {
   display: flex;
@@ -1553,6 +1572,21 @@
   opacity: 1;
   transform: none;
 }
+
+/* Per-route fade — replays on navigation via a pathname-keyed wrapper. */
+.route-fade {
+  animation: routeFade 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes routeFade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   .reveal {
     opacity: 1 !important;
@@ -1561,6 +1595,13 @@
   .hero__bg,
   .hero__inner,
   .hero__scroll span {
+    animation: none !important;
+  }
+  .nav,
+  .nav__topbar,
+  .nav__inner,
+  .route-fade {
+    transition: none !important;
     animation: none !important;
   }
 }
@@ -1664,6 +1705,29 @@
 /* ---------------- Tabbed catalogue ---------------- */
 .pagehead--cat {
   padding-bottom: 24px;
+  position: relative;
+  /* Construction-materials banner (Wikimedia Commons, CC BY-SA 3.0) under a
+     cream veil so the dark title text stays readable. */
+  background-image: linear-gradient(
+      rgba(247, 240, 220, 0.9),
+      rgba(247, 240, 220, 0.78)
+    ),
+    url("/catalogue/contruction.png");
+  background-size: cover;
+  background-position: center 40%;
+  background-repeat: no-repeat;
+}
+.pagehead--about {
+  position: relative;
+  /* About-us banner under a cream veil so the dark title text stays readable. */
+  background-image: linear-gradient(
+      rgba(247, 240, 220, 0.9),
+      rgba(247, 240, 220, 0.78)
+    ),
+    url("/catalogue/aboutus.png");
+  background-size: cover;
+  background-position: center 40%;
+  background-repeat: no-repeat;
 }
 .cat-tabs {
   position: sticky;
