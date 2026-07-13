@@ -48,35 +48,22 @@ export default function Navbar() {
                   {c.hotline}
                 </span>
               </a>
-              {(c.zalo || c.facebook) && (
+              {c.zalo && (
                 <>
                   <span className="nav__divider" />
                   <span className="nav__follow">
                     {tr({ vi: "Theo dõi", en: "Follow" })}
                   </span>
                   <div className="nav__socials">
-                    {c.zalo && (
-                      <a
-                        href={c.zalo}
-                        target="_blank"
-                        rel="noreferrer"
-                        aria-label="Zalo"
-                        className="nav__social"
-                      >
-                        <SocialMark name="zalo" />
-                      </a>
-                    )}
-                    {c.facebook && (
-                      <a
-                        href={c.facebook}
-                        target="_blank"
-                        rel="noreferrer"
-                        aria-label="Facebook"
-                        className="nav__social"
-                      >
-                        <SocialMark name="facebook" />
-                      </a>
-                    )}
+                    <a
+                      href={c.zalo}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label="Zalo"
+                      className="nav__social"
+                    >
+                      <SocialMark name="zalo" />
+                    </a>
                   </div>
                 </>
               )}

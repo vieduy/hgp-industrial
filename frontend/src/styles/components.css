@@ -1034,6 +1034,11 @@
   aspect-ratio: 1 / 1;
   object-fit: cover;
 }
+/* Bracing rod shot is a wide product photo — fit it whole (no crop/zoom). */
+.spec-block__media img[src*="bracing"] {
+  object-fit: contain;
+  padding: 16px;
+}
 @media (max-width: 760px) {
   .spec-block--with-image .spec-block__body {
     grid-template-columns: 1fr;
