@@ -3,10 +3,10 @@
 A deliberately minimal chatbot: no sessions, no storage, no retrieval. The
 frontend sends the full conversation, we prepend a persona system prompt built
 from :mod:`app.content` (so the assistant always reflects the live site copy),
-forward everything to the chat-completions gateway, and return the reply text.
+forward everything to the Google Gemini API, and return the reply text.
 
 Configuration is read from the environment so the API key never has to live in
-source control. Sensible defaults match the gateway we were given, but in
+source control. Sensible defaults match the project's Gemini key, but in
 production set ``LLM_API_KEY`` (and optionally ``LLM_BASE_URL`` / ``LLM_MODEL``).
 """
 
@@ -21,21 +21,28 @@ from typing import Iterator
 from . import content
 
 # ---------------------------------------------------------------------------
-# Gateway configuration (override via environment)
+# Gemini configuration (override via environment)
 # ---------------------------------------------------------------------------
 
+# The v1beta surface — v1 does not accept ``systemInstruction``.
 LLM_BASE_URL = os.environ.get(
-    "LLM_BASE_URL", "https://ai-gateway01.qualgo.ai/v1/chat/completions"
+    "LLM_BASE_URL", "https://generativelanguage.googleapis.com/v1beta"
 )
-LLM_MODEL = os.environ.get("LLM_MODEL", "openai/gpt-5.5")
+LLM_MODEL = os.environ.get("LLM_MODEL", "gemma-4-31b-it")
 LLM_API_KEY = os.environ.get(
-    "LLM_API_KEY", "sk-w97_sDzFndASEx-8_cvCbA"
+    "LLM_API_KEY", "AIzaSyA2yJWoTlmYXjGOen_tnL4Js7FIyLEkZnA"
 )
 # How long to wait on the upstream model before giving up (seconds).
 LLM_TIMEOUT = float(os.environ.get("LLM_TIMEOUT", "60"))
-# Reasoning effort for the (reasoning-capable) model. "none" disables the
-# chain-of-thought entirely — faster, cheaper, and fine for site Q&A.
-LLM_REASONING_EFFORT = os.environ.get("LLM_REASONING_EFFORT", "none")
+# "minimal" disables the chain-of-thought entirely — faster, cheaper, and fine
+# for site Q&A.
+#
+# Do NOT raise this on a Gemma model without re-testing: with thinking enabled,
+# Gemma streams its reasoning back as ordinary text parts that are *not* tagged
+# ``thought: true``, so `_texts()` cannot filter them and the raw chain-of-thought
+# ends up rendered in the chat window. At "minimal" the thought part is correctly
+# tagged (and empty), so the filter holds.
+LLM_THINKING_LEVEL = os.environ.get("LLM_THINKING_LEVEL", "minimal")
 
 
 # ---------------------------------------------------------------------------
@@ -157,69 +164,84 @@ class AssistantError(RuntimeError):
     """Raised when the upstream model call fails."""
 
 
+def _to_contents(messages: list[dict]) -> list[dict]:
+    """Convert the frontend's OpenAI-style history to Gemini ``contents``.
+
+    Gemini names the assistant turn "model" and nests text in ``parts``.
+    """
+    return [
+        {
+            "role": "model" if m["role"] == "assistant" else "user",
+            "parts": [{"text": m["content"]}],
+        }
+        for m in messages
+    ]
+
+
+def _texts(candidate: dict) -> Iterator[str]:
+    """Yield the visible text parts of a candidate, skipping thought parts."""
+    for part in candidate.get("content", {}).get("parts", []):
+        if part.get("thought"):
+            continue
+        text = part.get("text")
+        if text:
+            yield text
+
+
 def _open(messages: list[dict], stream: bool):
-    """Build and send the gateway request, returning the open response.
+    """Build and send the Gemini request, returning the open response.
 
     Raises :class:`AssistantError` on any connection / HTTP failure so callers
     can surface it before they start streaming a 200 response body.
     """
+    method = "streamGenerateContent?alt=sse&key=" if stream else "generateContent?key="
+    url = f"{LLM_BASE_URL}/models/{LLM_MODEL}:{method}{LLM_API_KEY}"
     payload = {
-        "model": LLM_MODEL,
-        "messages": [{"role": "system", "content": SYSTEM_PROMPT}, *messages],
-        "reasoning_effort": LLM_REASONING_EFFORT,
-        "stream": stream,
+        "systemInstruction": {"parts": [{"text": SYSTEM_PROMPT}]},
+        "contents": _to_contents(messages),
+        "generationConfig": {
+            "thinkingConfig": {"thinkingLevel": LLM_THINKING_LEVEL},
+        },
     }
     request = urllib.request.Request(
-        LLM_BASE_URL,
+        url,
         data=json.dumps(payload).encode("utf-8"),
-        headers={
-            "Content-Type": "application/json",
-            "x-litellm-api-key": LLM_API_KEY,
-            # The gateway sits behind Cloudflare. From datacenter IPs (Cloud Run)
-            # it issues a managed challenge unless the request looks like a real
-            # browser, so we send a full browser-like header set.
-            "User-Agent": (
-                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-                "AppleWebKit/537.36 (KHTML, like Gecko) "
-                "Chrome/124.0.0.0 Safari/537.36"
-            ),
-            "Accept": "application/json, text/event-stream, */*",
-            "Accept-Language": "en-US,en;q=0.9",
-            "Origin": "https://ai-gateway01.qualgo.ai",
-            "Referer": "https://ai-gateway01.qualgo.ai/",
-        },
+        headers={"Content-Type": "application/json"},
         method="POST",
     )
     try:
         return urllib.request.urlopen(request, timeout=LLM_TIMEOUT)
-    except urllib.error.HTTPError as exc:  # 4xx / 5xx from the gateway
+    except urllib.error.HTTPError as exc:  # 4xx / 5xx from Gemini
         detail = exc.read().decode("utf-8", "replace")[:500]
-        raise AssistantError(f"LLM gateway error {exc.code}: {detail}") from exc
+        raise AssistantError(f"Gemini API error {exc.code}: {detail}") from exc
     except (urllib.error.URLError, TimeoutError) as exc:  # network / timeout
-        raise AssistantError(f"Could not reach LLM gateway: {exc}") from exc
+        raise AssistantError(f"Could not reach Gemini API: {exc}") from exc
 
 
 def chat(messages: list[dict]) -> str:
-    """Send the conversation to the gateway and return the full reply text.
+    """Send the conversation to Gemini and return the full reply text.
 
     ``messages`` is the frontend conversation history as a list of
     ``{"role": "user"|"assistant", "content": str}`` dicts. The persona system
-    prompt is prepended here so the client never has to know it.
+    prompt is sent as ``systemInstruction`` so the client never has to know it.
     """
     with _open(messages, stream=False) as response:
         data = json.loads(response.read().decode("utf-8"))
     try:
-        return data["choices"][0]["message"]["content"].strip()
+        reply = "".join(_texts(data["candidates"][0]))
     except (KeyError, IndexError, AttributeError) as exc:
-        raise AssistantError("Unexpected response from LLM gateway") from exc
+        raise AssistantError("Unexpected response from Gemini API") from exc
+    if not reply:
+        raise AssistantError("Gemini API returned an empty reply")
+    return reply.strip()
 
 
 def chat_stream(messages: list[dict]) -> Iterator[str]:
     """Stream the assistant reply as it is generated, yielding text pieces.
 
     The connection is opened eagerly (so HTTP errors raise *before* the first
-    yield), then the gateway's SSE chunks are parsed and only the ``content``
-    deltas are yielded — reasoning output, if any, is dropped.
+    yield), then Gemini's SSE chunks are parsed and only the visible text parts
+    are yielded — reasoning output, if any, is dropped.
     """
     response = _open(messages, stream=True)
 
@@ -230,14 +252,11 @@ def chat_stream(messages: list[dict]) -> Iterator[str]:
                 if not line.startswith("data:"):
                     continue
                 data = line[len("data:") :].strip()
-                if data == "[DONE]":
-                    break
                 try:
                     chunk = json.loads(data)
-                    piece = chunk["choices"][0]["delta"].get("content")
+                    candidate = chunk["candidates"][0]
                 except (ValueError, KeyError, IndexError):
                     continue
-                if piece:
-                    yield piece
+                yield from _texts(candidate)
 
     return _iterate()

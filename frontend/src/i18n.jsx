@@ -66,8 +66,8 @@ const UI = {
   chat_open: { vi: "Mở trợ lý", en: "Open assistant" },
   chat_close: { vi: "Đóng", en: "Close" },
   chat_error: {
-    vi: "Xin lỗi, đã có lỗi xảy ra. Vui lòng thử lại hoặc gọi hotline 0384 928 141.",
-    en: "Sorry, something went wrong. Please try again or call 0384 928 141.",
+    vi: "Xin lỗi, đã có lỗi xảy ra. Vui lòng thử lại hoặc gọi hotline Viễn Thông - Hotline: 0384 928 141.",
+    en: "Sorry, something went wrong. Please try again or call Viễn Thông - Hotline: 0384 928 141.",
   },
 };
 
