@@ -8,6 +8,10 @@ __pycache__/
 .venv/
 venv/
 
+# Secrets — LLM_API_KEY etc. live here, never in source control.
+.env
+.env.local
+
 # Tooling / OS
 .DS_Store
 .idea/
