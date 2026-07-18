@@ -29,9 +29,10 @@ LLM_BASE_URL = os.environ.get(
     "LLM_BASE_URL", "https://generativelanguage.googleapis.com/v1beta"
 )
 LLM_MODEL = os.environ.get("LLM_MODEL", "gemma-4-31b-it")
-LLM_API_KEY = os.environ.get(
-    "LLM_API_KEY", "AIzaSyA2yJWoTlmYXjGOen_tnL4Js7FIyLEkZnA"
-)
+# No default: a key committed to source control gets scraped and auto-revoked
+# (that is exactly how the previous one died). Supply it via .env / the
+# deployment environment; a missing key fails loudly on the first chat request.
+LLM_API_KEY = os.environ.get("LLM_API_KEY", "")
 # How long to wait on the upstream model before giving up (seconds).
 LLM_TIMEOUT = float(os.environ.get("LLM_TIMEOUT", "60"))
 # "minimal" disables the chain-of-thought entirely — faster, cheaper, and fine
@@ -194,6 +195,8 @@ def _open(messages: list[dict], stream: bool):
     Raises :class:`AssistantError` on any connection / HTTP failure so callers
     can surface it before they start streaming a 200 response body.
     """
+    if not LLM_API_KEY:
+        raise AssistantError("LLM_API_KEY is not set — the assistant is unconfigured.")
     method = "streamGenerateContent?alt=sse&key=" if stream else "generateContent?key="
     url = f"{LLM_BASE_URL}/models/{LLM_MODEL}:{method}{LLM_API_KEY}"
     payload = {

@@ -3,6 +3,16 @@ import { api } from "../api.js";
 import { useI18n } from "../i18n.jsx";
 import Markdown from "./Markdown.jsx";
 
+// Quick-reply chips offered under the greeting. Each entry names an i18n label
+// key and the question key that is actually sent — see `chat_faq_*` in i18n.
+const FAQS = [
+  { label: "chat_faq_products", question: "chat_faq_products_q" },
+  { label: "chat_faq_fireproof", question: "chat_faq_fireproof_q" },
+  { label: "chat_faq_quote", question: "chat_faq_quote_q" },
+  { label: "chat_faq_projects", question: "chat_faq_projects_q" },
+  { label: "chat_faq_contact", question: "chat_faq_contact_q" },
+];
+
 /**
  * Floating chat assistant: a bubble pinned to the bottom-right that opens a
  * simple chat panel. Stateless on the backend — we send the full message
@@ -30,14 +40,17 @@ export default function ChatWidget() {
     if (open) inputRef.current?.focus();
   }, [open]);
 
-  async function send() {
-    const text = input.trim();
+  // `preset` is supplied by the FAQ chips, which bypass the input box entirely.
+  async function send(preset) {
+    const text = (preset ?? input).trim();
     if (!text || loading) return;
 
     const next = [...messages, { role: "user", content: text }];
     // Add an empty assistant bubble that fills in as tokens stream in.
     setMessages([...next, { role: "assistant", content: "" }]);
-    setInput("");
+    // Only clear the box when we actually sent what was in it — a chip tap
+    // must not discard a half-typed message.
+    if (preset === undefined) setInput("");
     setLoading(true);
 
     try {
@@ -83,6 +96,20 @@ export default function ChatWidget() {
 
           <div className="chat__body" ref={scrollRef}>
             <div className="chat__msg chat__msg--bot">{tr("chat_greeting")}</div>
+            {messages.length === 0 && (
+              <div className="chat__faqs">
+                {FAQS.map((faq) => (
+                  <button
+                    key={faq.label}
+                    className="chat__faq"
+                    onClick={() => send(tr(faq.question))}
+                    disabled={loading}
+                  >
+                    {tr(faq.label)}
+                  </button>
+                ))}
+              </div>
+            )}
             {messages.map((m, i) => (
               <div
                 key={i}
@@ -122,7 +149,7 @@ export default function ChatWidget() {
             />
             <button
               className="chat__send"
-              onClick={send}
+              onClick={() => send()}
               disabled={loading || !input.trim()}
             >
               {tr("chat_send")}

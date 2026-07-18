@@ -61,6 +61,35 @@ const UI = {
     vi: "Xin chào! Tôi có thể giúp gì cho bạn về HGP Industrial?",
     en: "Hi! How can I help you with HGP Industrial?",
   },
+  // Quick-reply chips shown under the greeting so a visitor can start a
+  // conversation with one tap. The label is what the user sees; the question
+  // (chat_faq_*_q) is what actually gets sent to the assistant.
+  chat_faq_products: { vi: "Sản phẩm & dịch vụ", en: "Products & services" },
+  chat_faq_products_q: {
+    vi: "HGP Industrial cung cấp những sản phẩm và dịch vụ gì?",
+    en: "What products and services does HGP Industrial offer?",
+  },
+  chat_faq_fireproof: { vi: "Sơn chống cháy", en: "Fireproof coating" },
+  chat_faq_fireproof_q: {
+    vi: "Sơn chống cháy của HGP đạt tiêu chuẩn và cấp chống cháy nào?",
+    en: "What standards and fire ratings does HGP's fireproof coating meet?",
+  },
+  chat_faq_quote: { vi: "Nhận báo giá", en: "Get a quote" },
+  chat_faq_quote_q: {
+    vi: "Tôi muốn nhận báo giá, cần cung cấp những thông tin gì?",
+    en: "I'd like a quotation — what information do you need from me?",
+  },
+  chat_faq_projects: { vi: "Dự án tiêu biểu", en: "Featured projects" },
+  chat_faq_projects_q: {
+    vi: "HGP đã thực hiện những dự án tiêu biểu nào?",
+    en: "What featured projects has HGP delivered?",
+  },
+  chat_faq_contact: { vi: "Liên hệ", en: "Contact" },
+  chat_faq_contact_q: {
+    vi: "Cho tôi thông tin liên hệ và địa chỉ của công ty.",
+    en: "What is your contact information and address?",
+  },
+
   chat_placeholder: { vi: "Nhập tin nhắn…", en: "Type a message…" },
   chat_send: { vi: "Gửi", en: "Send" },
   chat_open: { vi: "Mở trợ lý", en: "Open assistant" },

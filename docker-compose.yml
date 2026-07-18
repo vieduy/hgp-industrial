@@ -11,5 +11,5 @@ services:
       # to avoid committing secrets; these defaults match the dev key.
       - LLM_BASE_URL=${LLM_BASE_URL:-https://generativelanguage.googleapis.com/v1beta}
       - LLM_MODEL=${LLM_MODEL:-gemma-4-31b-it}
-      - LLM_API_KEY=${LLM_API_KEY:-AIzaSyA2yJWoTlmYXjGOen_tnL4Js7FIyLEkZnA}
+      - LLM_API_KEY=${LLM_API_KEY}
     restart: unless-stopped
